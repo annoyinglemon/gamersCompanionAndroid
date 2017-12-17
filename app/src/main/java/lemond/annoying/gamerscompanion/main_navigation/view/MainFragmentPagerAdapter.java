@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import lemond.annoying.gamerscompanion.news.view.NewsFragment;
-import lemond.annoying.gamerscompanion.now.view.NowFragment;
+import lemond.annoying.gamerscompanion.now.NowFragment;
 import lemond.annoying.gamerscompanion.search.view.SearchFragment;
 
 

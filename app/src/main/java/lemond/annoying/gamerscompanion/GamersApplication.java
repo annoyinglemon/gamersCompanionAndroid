@@ -2,26 +2,35 @@ package lemond.annoying.gamerscompanion;
 
 import android.app.Application;
 
-import lemond.annoying.gamerscompanion.component.DaggerAppComponent;
-import lemond.annoying.gamerscompanion.component.AppComponent;
-import lemond.annoying.gamerscompanion.module.AppModule;
+import lemond.annoying.gamerscompanion.component.DaggerGamersAppComponent;
+import lemond.annoying.gamerscompanion.component.GamersAppComponent;
+import lemond.annoying.gamerscompanion.game.model.GameService;
+import lemond.annoying.gamerscompanion.module.AppContextModule;
+import timber.log.Timber;
 
 
 public class GamersApplication extends Application {
 
-    private AppComponent mAppComponent;
+
+    private GameService gameService;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule())
+        Timber.plant(new Timber.DebugTree());
+        // include only the modules with constructor arguments, so we can remove the networkModule and gameServiceModule
+        GamersAppComponent gamersAppComponent = DaggerGamersAppComponent.builder()
+                .appContextModule(new AppContextModule(this))
                 .build();
+//                .networkModule(new NetworkModule())
+//                .gameServiceModule(new GameServiceModule())
+        gameService = gamersAppComponent.getGameService();
     }
 
-    public AppComponent getmAppComponent() {
-        return mAppComponent;
+    public GameService getGameService() {
+        return gameService;
     }
+
 
 }
