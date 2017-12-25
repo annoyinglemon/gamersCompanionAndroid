@@ -4,7 +4,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="lemond.annoying.gamerscompanion.now.released.ReleasedFragment">
+        tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_released.ReleasedFragment">
 
         <TextView
             android:layout_width="wrap_content"

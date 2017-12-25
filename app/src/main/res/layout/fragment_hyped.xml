@@ -4,7 +4,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="lemond.annoying.gamerscompanion.now.popular.PopularFragment">
+        tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularFragment">
 
         <TextView
             android:layout_width="wrap_content"

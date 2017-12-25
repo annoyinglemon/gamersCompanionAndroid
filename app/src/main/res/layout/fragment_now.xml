@@ -1,6 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -10,6 +9,8 @@
             android:id="@+id/tablayout_now_fragment"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
 
         </android.support.design.widget.TabLayout>
 
-        <lemond.annoying.gamerscompanion.NonSwipeableViewPager
+        <lemond.annoying.gamerscompanion.fragment_now.NonSwipeableViewPager
             android:id="@+id/viewpager_now_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
