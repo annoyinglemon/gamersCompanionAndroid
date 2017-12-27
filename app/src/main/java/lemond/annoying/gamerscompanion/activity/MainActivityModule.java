@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentManager;
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.repository.service.GameService;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularViewModelFactory;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModelFactory;
 
 @Module
 public class MainActivityModule {

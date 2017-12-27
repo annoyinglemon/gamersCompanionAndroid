@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.HypedFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_released.ReleasedFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_soon.SoonFragment;
 

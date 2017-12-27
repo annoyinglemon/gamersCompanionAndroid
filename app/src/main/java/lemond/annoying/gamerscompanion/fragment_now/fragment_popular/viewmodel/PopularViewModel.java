@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel;
 
 
 import android.arch.lifecycle.LiveData;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
 
 public class PopularViewModel extends ViewModel {

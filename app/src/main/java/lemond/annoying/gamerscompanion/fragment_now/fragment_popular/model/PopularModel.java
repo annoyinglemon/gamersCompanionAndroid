@@ -1,6 +1,5 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 

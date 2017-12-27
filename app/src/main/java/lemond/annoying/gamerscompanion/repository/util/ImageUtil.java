@@ -12,15 +12,15 @@ public class ImageUtil {
 
     public static String getLargeCoverImageUrl(String url) {
         Log.d("kurt", url);
-//        String toBeRemoved = url.substring(url.indexOf("/t_thumb"), url.lastIndexOf("/"));
-//        if (!url.contains("https:"))
-//            return "https:" + url.replace(toBeRemoved, "");
-//        else
-//            return url.replace(toBeRemoved, "");
+        String toBeRemoved = url.substring(url.indexOf("/t_thumb"), url.lastIndexOf("/"));
         if (!url.contains("https:"))
-            return "https:" + url;
+            return "https:" + url.replace(toBeRemoved, "");
         else
-            return url;
+            return url.replace(toBeRemoved, "");
+//        if (!url.contains("https:"))
+//            return "https:" + url;
+//        else
+//            return url;
     }
 
 }

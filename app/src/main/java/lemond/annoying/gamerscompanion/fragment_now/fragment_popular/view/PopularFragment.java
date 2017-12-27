@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view;
 
 
 import android.databinding.DataBindingUtil;
@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,10 @@ import javax.inject.Inject;
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.FragmentPopularBinding;
 import lemond.annoying.gamerscompanion.activity.MainActivity;
-
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.DaggerPopularFragmentComponent;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularFragmentComponent;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularFragmentModule;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
 
 
 public class PopularFragment extends Fragment {
@@ -25,10 +27,10 @@ public class PopularFragment extends Fragment {
     private static final int GRID_COLUMNS_COUNT = 2;
 
     @Inject
-    PopularViewModel viewModel;
+    public PopularViewModel viewModel;
 
     @Inject
-    PopularAdapter popularAdapter;
+    public PopularAdapter popularAdapter;
 
 
     public PopularFragment() {}
@@ -40,7 +42,6 @@ public class PopularFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d("kurt", "viewModel: " + viewModel);
         viewModel.getMostPopularGames().observe(this, games -> {
             popularAdapter.setPopularGamesList(games);
         });

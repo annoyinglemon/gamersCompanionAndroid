@@ -1,9 +1,12 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
+
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 
 
 public class PopularViewModelFactory implements ViewModelProvider.Factory {
@@ -15,7 +18,9 @@ public class PopularViewModelFactory implements ViewModelProvider.Factory {
         this.popularModel = popularModel;
     }
 
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(PopularViewModel.class)) {
             return (T) new PopularViewModel(popularModel);
         }

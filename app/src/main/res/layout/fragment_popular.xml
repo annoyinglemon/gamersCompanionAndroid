@@ -5,7 +5,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_popular.PopularFragment">
+        tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/popular_grid"

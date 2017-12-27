@@ -1,14 +1,11 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view;
 
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
@@ -17,11 +14,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.app.GlideApp;
+import lemond.annoying.gamerscompanion.app.GlideRequests;
 import lemond.annoying.gamerscompanion.databinding.GridItemGameBinding;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.repository.util.ImageUtil;
-import timber.log.Timber;
 
 
 public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,11 +25,11 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // TODO: 2017-12-19 make this a list of gameViewModel later on for on click events
     private List<Game> popularGames;
 
-    private final PopularFragment popularFragment;
+    private final GlideRequests glideRequests;
 
     @Inject
-    public PopularAdapter(PopularFragment popularFragment) {
-        this.popularFragment = popularFragment;
+    public PopularAdapter(GlideRequests glideRequests) {
+        this.glideRequests = glideRequests;
         popularGames = new ArrayList<>();
     }
 
@@ -52,21 +48,12 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         GameGridViewHolder gameGridViewHolder = ((GameGridViewHolder) holder);
         gameGridViewHolder.bindGame(popularGames.get(position));
-//        GlideApp.with(popularFragment)
-//                .load("https://images.igdb.com/igdb/image/upload/" + popularGames.get(position).cover.cloudinary_id+".jpg")
-//                .centerCrop()
-//                .placeholder(R.drawable.ic_placeholder_image)
-//                .into(((GameGridViewHolder) holder).getBinding().gameGridItemImage);
-        GlideApp.with(popularFragment)
+        glideRequests
                 .load(ImageUtil.getLargeCoverImageUrl(popularGames.get(position).cover.url))
                 .placeholder(R.drawable.ic_placeholder_image)
+                .error(R.drawable.ic_error_image)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(gameGridViewHolder.getBinding().gameGridItemImage);
-//        GlideApp.with(popularFragment)
-//                .load("https://images.igdb.com/igdb/image/upload/" + popularGames.get(position).cover.cloudinary_id)
-//                .
-//                ;
-
     }
 
     @Override
