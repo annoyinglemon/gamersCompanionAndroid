@@ -1,0 +1,141 @@
+package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+
+
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import java.util.List;
+
+import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemEmptyBinding;
+import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemErrorBinding;
+import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemLoadingBinding;
+import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemNoInternetBinding;
+
+import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.CONTENT;
+import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.EMPTY;
+import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.ERROR;
+import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.LOADING;
+import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.NO_INTERNET;
+
+public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public enum State {
+        LOADING,
+        ERROR,
+        EMPTY,
+        NO_INTERNET,
+        CONTENT
+    }
+
+    protected List<T> dataList;
+    private State currentState;
+
+    class StateViewHolder extends RecyclerView.ViewHolder {
+        public StateViewHolder(ViewDataBinding viewDataBinding) {
+            super(viewDataBinding.getRoot());
+        }
+    }
+
+    public ContentDataStateAdapter() {
+        currentState = State.LOADING;
+    }
+
+    public void setDataList(List<T> dataList) {
+        int previousCount = getItemCount();
+        this.dataList = dataList;
+
+        if (dataList != null && !dataList.isEmpty()) {
+            currentState = State.CONTENT;
+        } else {
+            currentState = State.EMPTY;
+        }
+
+        notifyChanges(previousCount, getItemCount());
+
+    }
+
+    protected void setCurrentState(State state) {
+        int previousCount = getItemCount();
+        this.currentState = state;
+        notifyChanges(previousCount, getItemCount());
+    }
+
+    private void notifyChanges(int previousCount, int newCount) {
+        if (previousCount == newCount) {
+            notifyItemRangeChanged(0, newCount);
+        } else if (previousCount > newCount) {
+            notifyItemRangeChanged(0, newCount);
+            notifyItemRangeRemoved(newCount, (previousCount - newCount));
+        } else if (previousCount < newCount) {
+            notifyItemRangeChanged(0, previousCount);
+            notifyItemRangeInserted(previousCount, (newCount - previousCount));
+        }
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        State state = State.values()[viewType];
+        switch (state) {
+            case ERROR:
+                RecyclerviewItemErrorBinding errorBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_error, parent, false);
+                return new StateViewHolder(errorBinding);
+            case NO_INTERNET:
+                RecyclerviewItemNoInternetBinding noInternetBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_no_internet, parent, false);
+                return new StateViewHolder(noInternetBinding);
+            case EMPTY:
+                RecyclerviewItemEmptyBinding emptyBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_empty, parent, false);
+                return new StateViewHolder(emptyBinding);
+            case CONTENT:
+                return getContentViewHolder(parent);
+            default:
+            case LOADING:
+                RecyclerviewItemLoadingBinding loadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_loading, parent, false);
+                return new StateViewHolder(loadingBinding);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            switch (currentState) {
+                case ERROR:
+                    return ERROR.ordinal();
+                case NO_INTERNET:
+                    return NO_INTERNET.ordinal();
+                case EMPTY:
+                    return EMPTY.ordinal();
+                case CONTENT:
+                    return CONTENT.ordinal();
+                default:
+                case LOADING:
+                    return LOADING.ordinal();
+            }
+        } else {
+            return CONTENT.ordinal();
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if (currentState == ERROR || currentState == NO_INTERNET || currentState == LOADING || currentState == EMPTY) {
+            return 1;
+        } else {
+            return dataList.size();
+        }
+    }
+
+    public int getSpanSizeForGrid(int position) {
+        if (dataList != null && !dataList.isEmpty() && currentState == CONTENT || position > 0) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    public abstract RecyclerView.ViewHolder getContentViewHolder(ViewGroup parent);
+
+}

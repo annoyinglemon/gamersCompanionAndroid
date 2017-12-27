@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.FragmentPopularBinding;
 import lemond.annoying.gamerscompanion.activity.MainActivity;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.DaggerPopularFragmentComponent;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.DaggerPopularFragmentComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularFragmentComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularFragmentModule;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
@@ -32,6 +32,7 @@ public class PopularFragment extends Fragment {
     @Inject
     public PopularAdapter popularAdapter;
 
+    private FragmentPopularBinding binding;
 
     public PopularFragment() {}
 
@@ -43,13 +44,14 @@ public class PopularFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel.getMostPopularGames().observe(this, games -> {
-            popularAdapter.setPopularGamesList(games);
+            popularAdapter.setDataList(games);
+            refreshGridSpan();
         });
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentPopularBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_popular, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_popular, container, false);
         binding.popularGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
         binding.popularGrid.setHasFixedSize(true);
 
@@ -61,12 +63,20 @@ public class PopularFragment extends Fragment {
         component.injectPopularFragment(this);
 
         binding.popularGrid.setAdapter(popularAdapter);
+        refreshGridSpan();
+
+        viewModel.refreshData(false);
 
         return binding.getRoot();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void refreshGridSpan() {
+        ((GridLayoutManager) binding.popularGrid.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return popularAdapter.getSpanSizeForGrid(position);
+            }
+        });
     }
+
 }

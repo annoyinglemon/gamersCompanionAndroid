@@ -16,15 +16,18 @@ public class PopularViewModel extends ViewModel {
 
     private MutableLiveData<List<Game>> mostPopularGames;
     private PopularModel popularModel;
+    private boolean isRefreshDataTriggered;
 
     @Inject
     public PopularViewModel(PopularModel popularModel) {
         this.popularModel = popularModel;
-        mostPopularGames = popularModel.getMostPopular();
     }
 
-    public void refreshData() {
-        mostPopularGames = popularModel.getMostPopular();
+    public void refreshData(boolean forceRefresh) {
+        if (!isRefreshDataTriggered || forceRefresh) {
+            mostPopularGames = popularModel.getMostPopular();
+            isRefreshDataTriggered = true;
+        }
     }
 
     public LiveData<List<Game>> getMostPopularGames() {
