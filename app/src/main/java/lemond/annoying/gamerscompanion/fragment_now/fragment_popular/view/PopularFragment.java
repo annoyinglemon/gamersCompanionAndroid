@@ -43,8 +43,8 @@ public class PopularFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getMostPopularGames().observe(this, games -> {
-            popularAdapter.setDataList(games);
+        viewModel.getMostPopularGames().observe(this, dataState -> {
+            popularAdapter.setCurrentDataState(dataState);
             refreshGridSpan();
         });
     }

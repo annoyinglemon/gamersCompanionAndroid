@@ -11,10 +11,11 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
+import lemond.annoying.gamerscompanion.repository.service.DataState;
 
 public class PopularViewModel extends ViewModel {
 
-    private MutableLiveData<List<Game>> mostPopularGames;
+    private MutableLiveData<DataState<List<Game>>> mostPopularGames;
     private PopularModel popularModel;
     private boolean isRefreshDataTriggered;
 
@@ -30,7 +31,7 @@ public class PopularViewModel extends ViewModel {
         }
     }
 
-    public LiveData<List<Game>> getMostPopularGames() {
+    public LiveData<DataState<List<Game>>> getMostPopularGames() {
         if (mostPopularGames == null) {
             mostPopularGames = new MutableLiveData<>();
         }

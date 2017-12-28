@@ -2,6 +2,8 @@ package lemond.annoying.gamerscompanion.app.module;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +13,8 @@ import java.io.File;
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.app.GamersApplicationScope;
+import lemond.annoying.gamerscompanion.app.module.qualifier.ConnectivityInterceptor;
+import lemond.annoying.gamerscompanion.repository.exception.NoConnectivityException;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -48,7 +52,7 @@ public class NetworkModule {
     @GamersApplicationScope
     public HttpLoggingInterceptor provideLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(message -> Timber.i(message));
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
 
@@ -67,11 +71,27 @@ public class NetworkModule {
 
     @Provides
     @GamersApplicationScope
-    public OkHttpClient provideOkHttpClient(Cache cache, HttpLoggingInterceptor loggingInterceptor, Interceptor requestInterceptor) {
+    @ConnectivityInterceptor
+    public Interceptor provideConnectivityInterceptor(Context context) {
+        return chain -> {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+            if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+                throw new NoConnectivityException();
+            }
+            Request.Builder builder = chain.request().newBuilder();
+            return chain.proceed(builder.build());
+        };
+    }
+
+    @Provides
+    @GamersApplicationScope
+    public OkHttpClient provideOkHttpClient(Cache cache, HttpLoggingInterceptor loggingInterceptor, Interceptor requestInterceptor, @ConnectivityInterceptor Interceptor connectivityInterceptor) {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         clientBuilder.cache(cache);
         clientBuilder.addInterceptor(loggingInterceptor);
         clientBuilder.addInterceptor(requestInterceptor);
+        clientBuilder.addInterceptor(connectivityInterceptor);
         return clientBuilder.build();
     }
 

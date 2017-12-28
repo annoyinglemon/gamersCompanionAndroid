@@ -7,60 +7,42 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.List;
+
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemEmptyBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemErrorBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemLoadingBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemNoInternetBinding;
+import lemond.annoying.gamerscompanion.repository.service.DataState;
 
-import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.CONTENT;
-import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.EMPTY;
-import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.ERROR;
-import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.LOADING;
-import static lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter.State.NO_INTERNET;
+import static lemond.annoying.gamerscompanion.repository.service.DataState.State.CONTENT;
+import static lemond.annoying.gamerscompanion.repository.service.DataState.State.EMPTY;
+import static lemond.annoying.gamerscompanion.repository.service.DataState.State.ERROR;
+import static lemond.annoying.gamerscompanion.repository.service.DataState.State.NO_INTERNET;
+import static lemond.annoying.gamerscompanion.repository.service.DataState.State.LOADING;
 
 public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public enum State {
-        LOADING,
-        ERROR,
-        EMPTY,
-        NO_INTERNET,
-        CONTENT
-    }
-
-    protected List<T> dataList;
-    private State currentState;
+    protected DataState<T> currentDataState;
 
     class StateViewHolder extends RecyclerView.ViewHolder {
-        public StateViewHolder(ViewDataBinding viewDataBinding) {
+        StateViewHolder(ViewDataBinding viewDataBinding) {
             super(viewDataBinding.getRoot());
         }
     }
 
-    public ContentDataStateAdapter() {
-        currentState = State.LOADING;
+    protected ContentDataStateAdapter() {
+        currentDataState = new DataState<>();
+        currentDataState.state = LOADING;
+        currentDataState.size = 1;
     }
 
-    public void setDataList(List<T> dataList) {
+    public void setCurrentDataState(DataState<T> dataState) {
         int previousCount = getItemCount();
-        this.dataList = dataList;
-
-        if (dataList != null && !dataList.isEmpty()) {
-            currentState = State.CONTENT;
-        } else {
-            currentState = State.EMPTY;
-        }
-
-        notifyChanges(previousCount, getItemCount());
-
-    }
-
-    protected void setCurrentState(State state) {
-        int previousCount = getItemCount();
-        this.currentState = state;
+        currentDataState.state = dataState.state;
+        currentDataState.data = dataState.data;
+        currentDataState.size = dataState.size;
         notifyChanges(previousCount, getItemCount());
     }
 
@@ -78,7 +60,7 @@ public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<Re
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        State state = State.values()[viewType];
+        DataState.State state = DataState.State.values()[viewType];
         switch (state) {
             case ERROR:
                 RecyclerviewItemErrorBinding errorBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_error, parent, false);
@@ -101,7 +83,7 @@ public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<Re
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            switch (currentState) {
+            switch (currentDataState.state) {
                 case ERROR:
                     return ERROR.ordinal();
                 case NO_INTERNET:
@@ -112,7 +94,7 @@ public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<Re
                     return CONTENT.ordinal();
                 default:
                 case LOADING:
-                    return LOADING.ordinal();
+                    return DataState.State.LOADING.ordinal();
             }
         } else {
             return CONTENT.ordinal();
@@ -121,15 +103,11 @@ public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
-        if (currentState == ERROR || currentState == NO_INTERNET || currentState == LOADING || currentState == EMPTY) {
-            return 1;
-        } else {
-            return dataList.size();
-        }
+        return currentDataState.size;
     }
 
     public int getSpanSizeForGrid(int position) {
-        if (dataList != null && !dataList.isEmpty() && currentState == CONTENT || position > 0) {
+        if (currentDataState.data != null && currentDataState.size > 0 && currentDataState.state == CONTENT || position > 0) {
             return 1;
         } else {
             return 2;
