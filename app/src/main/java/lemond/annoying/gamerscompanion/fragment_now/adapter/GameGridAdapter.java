@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view;
+package lemond.annoying.gamerscompanion.fragment_now.adapter;
 
 
 import android.databinding.DataBindingUtil;
@@ -11,19 +11,19 @@ import javax.inject.Inject;
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
 import lemond.annoying.gamerscompanion.databinding.GridItemGameBinding;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.ContentDataStateAdapter;
+import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.repository.service.DataState;
 import lemond.annoying.gamerscompanion.repository.util.ImageUtil;
 
 
-public class PopularAdapter extends ContentDataStateAdapter<List<Game>> {
+public class GameGridAdapter extends DataStateAdapter<List<Game>> {
 
 
     private final GlideRequests glideRequests;
 
     @Inject
-    public PopularAdapter(GlideRequests glideRequests) {
+    public GameGridAdapter(GlideRequests glideRequests) {
         this.glideRequests = glideRequests;
     }
 

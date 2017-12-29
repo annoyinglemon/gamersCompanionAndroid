@@ -10,6 +10,9 @@ import retrofit2.http.GET;
 public interface GameService {
 
     @GET("/games/?fields=name,cover&order=popularity:desc")
-    Call<List<Game>> getMostPopular();
+    Call<List<Game>> getTrendingGames();
+
+    @GET("/games/?fields=name,cover&order=hypes:desc")
+    Call<List<Game>> getPopularGames();
 
 }

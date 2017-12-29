@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.HypedFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_released.ReleasedFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_soon.SoonFragment;
 
@@ -28,14 +28,14 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
         // TODO: 2017-12-17 use resource string
         switch (position) {
             case 1:
-                return "Hyped";
+                return "Popular";
             case 2:
                 return "Released";
             case 3:
                 return "Soon";
             default:
             case 0:
-                return "Popular";
+                return "Trending";
         }
     }
 
@@ -43,14 +43,14 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 1:
-                return HypedFragment.newInstance();
+                return PopularFragment.newInstance();
             case 2:
                 return ReleasedFragment.newInstance();
             case 3:
                 return SoonFragment.newInstance();
             default:
             case 0:
-                return PopularFragment.newInstance();
+                return TrendingFragment.newInstance();
         }
     }
 }

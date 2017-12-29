@@ -1,5 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model;
-
+package lemond.annoying.gamerscompanion.fragment_now.fragment_trending.model;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
@@ -7,24 +6,24 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import lemond.annoying.gamerscompanion.repository.exception.NoConnectivityException;
-import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.repository.service.DataState;
 import lemond.annoying.gamerscompanion.repository.service.GameService;
+import lemond.annoying.gamerscompanion.repository.objects.Game;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PopularModel {
+public class TrendingModel {
 
     private GameService gameService;
 
-    public PopularModel(GameService gameService) {
+    public TrendingModel(GameService gameService) {
         this.gameService = gameService;
     }
 
-    public MutableLiveData<DataState<List<Game>>> getPopularGames() {
+    public MutableLiveData<DataState<List<Game>>> getTrendingGames() {
         final MutableLiveData<DataState<List<Game>>> data = new MutableLiveData<>();
-        gameService.getPopularGames().enqueue(new Callback<List<Game>>() {
+        gameService.getTrendingGames().enqueue(new Callback<List<Game>>() {
 
             @Override
             @SuppressWarnings("ConstantConditions")

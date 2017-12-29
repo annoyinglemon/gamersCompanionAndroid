@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view;
+package lemond.annoying.gamerscompanion.fragment_now.adapter;
 
 import android.support.v7.widget.RecyclerView;
 

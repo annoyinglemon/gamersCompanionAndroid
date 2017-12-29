@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular;
+package lemond.annoying.gamerscompanion.repository.adapter;
 
 
 import android.databinding.DataBindingUtil;
@@ -22,7 +22,7 @@ import static lemond.annoying.gamerscompanion.repository.service.DataState.State
 import static lemond.annoying.gamerscompanion.repository.service.DataState.State.NO_INTERNET;
 import static lemond.annoying.gamerscompanion.repository.service.DataState.State.LOADING;
 
-public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected DataState<T> currentDataState;
 
@@ -32,7 +32,7 @@ public abstract class ContentDataStateAdapter<T> extends RecyclerView.Adapter<Re
         }
     }
 
-    protected ContentDataStateAdapter() {
+    protected DataStateAdapter() {
         currentDataState = new DataState<>();
         currentDataState.state = LOADING;
         currentDataState.size = 1;

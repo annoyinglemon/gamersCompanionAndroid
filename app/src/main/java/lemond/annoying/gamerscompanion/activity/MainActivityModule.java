@@ -6,10 +6,13 @@ import android.support.v4.app.FragmentManager;
 
 import dagger.Module;
 import dagger.Provides;
-import lemond.annoying.gamerscompanion.repository.service.GameService;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModelFactory;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.model.TrendingModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModelFactory;
+import lemond.annoying.gamerscompanion.repository.service.GameService;
 
 @Module
 public class MainActivityModule {
@@ -34,7 +37,25 @@ public class MainActivityModule {
 
     @Provides
     @MainActivityScope
-    public PopularModel providePopularModel(GameService gameService) {
+    public TrendingModel provideTrendingModel(GameService gameService) {
+        return new TrendingModel(gameService);
+    }
+
+    @Provides
+    @MainActivityScope
+    public TrendingViewModelFactory provideTrendingViewModelFactory(TrendingModel trendingModel) {
+        return new TrendingViewModelFactory(trendingModel);
+    }
+
+    @Provides
+    @MainActivityScope
+    public TrendingViewModel provideTrendingViewModel(MainActivity mainActivity, TrendingViewModelFactory trendingViewModelFactory) {
+        return ViewModelProviders.of(mainActivity, trendingViewModelFactory).get(TrendingViewModel.class);
+    }
+
+    @Provides
+    @MainActivityScope
+    public PopularModel popularModel(GameService gameService) {
         return new PopularModel(gameService);
     }
 

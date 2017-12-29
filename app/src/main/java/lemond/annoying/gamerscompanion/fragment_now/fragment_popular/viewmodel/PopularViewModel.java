@@ -15,7 +15,7 @@ import lemond.annoying.gamerscompanion.repository.service.DataState;
 
 public class PopularViewModel extends ViewModel {
 
-    private MutableLiveData<DataState<List<Game>>> mostPopularGames;
+    private MutableLiveData<DataState<List<Game>>> popularGames;
     private PopularModel popularModel;
     private boolean isRefreshDataTriggered;
 
@@ -26,15 +26,16 @@ public class PopularViewModel extends ViewModel {
 
     public void refreshData(boolean forceRefresh) {
         if (!isRefreshDataTriggered || forceRefresh) {
-            mostPopularGames = popularModel.getMostPopular();
+            this.popularGames = popularModel.getPopularGames();
             isRefreshDataTriggered = true;
         }
     }
 
-    public LiveData<DataState<List<Game>>> getMostPopularGames() {
-        if (mostPopularGames == null) {
-            mostPopularGames = new MutableLiveData<>();
+    public LiveData<DataState<List<Game>>> getPopularGames() {
+        if (popularGames == null) {
+            popularGames = new MutableLiveData<>();
         }
-        return this.mostPopularGames;
+        return this.popularGames;
     }
+
 }
