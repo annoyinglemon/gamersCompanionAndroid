@@ -1,8 +1,7 @@
 package lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection;
 
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
-import lemond.annoying.gamerscompanion.activity.MainActivityComponent;
+import lemond.annoying.gamerscompanion.activity.injection.MainActivityComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
 
 @TrendingFragmentScope

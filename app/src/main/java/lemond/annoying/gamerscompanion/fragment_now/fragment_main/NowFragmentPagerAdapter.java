@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
 
 
 import android.support.annotation.Nullable;
@@ -8,8 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_released.ReleasedFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_soon.SoonFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFragment;
 
 public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -19,7 +18,7 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Nullable
@@ -30,9 +29,7 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return "Popular";
             case 2:
-                return "Released";
-            case 3:
-                return "Soon";
+                return "Hyped";
             default:
             case 0:
                 return "Trending";
@@ -45,9 +42,7 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return PopularFragment.newInstance();
             case 2:
-                return ReleasedFragment.newInstance();
-            case 3:
-                return SoonFragment.newInstance();
+                return HypedFragment.newInstance();
             default:
             case 0:
                 return TrendingFragment.newInstance();

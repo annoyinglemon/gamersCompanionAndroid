@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model;
 
 
 import android.arch.lifecycle.MutableLiveData;
@@ -14,17 +14,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PopularModel {
+public class HypedModel {
 
     private GameService gameService;
 
-    public PopularModel(GameService gameService) {
+    public HypedModel(GameService gameService) {
         this.gameService = gameService;
     }
 
-    public MutableLiveData<DataState<List<Game>>> getPopularGames() {
+    public MutableLiveData<DataState<List<Game>>> getHypedGames() {
         final MutableLiveData<DataState<List<Game>>> data = new MutableLiveData<>();
-        gameService.getPopularGames(System.currentTimeMillis()).enqueue(new Callback<List<Game>>() {
+        gameService.getHypedGames(System.currentTimeMillis()).enqueue(new Callback<List<Game>>() {
 
             @Override
             @SuppressWarnings("ConstantConditions")

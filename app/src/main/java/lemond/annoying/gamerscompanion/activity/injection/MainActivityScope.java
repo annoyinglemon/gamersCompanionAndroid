@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.activity;
+package lemond.annoying.gamerscompanion.activity.injection;
 
 
 

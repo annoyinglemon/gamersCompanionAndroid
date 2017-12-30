@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
 
 
 import android.content.Context;

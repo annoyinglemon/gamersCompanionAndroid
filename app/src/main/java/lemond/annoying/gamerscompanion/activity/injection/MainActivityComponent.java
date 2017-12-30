@@ -1,9 +1,10 @@
-package lemond.annoying.gamerscompanion.activity;
+package lemond.annoying.gamerscompanion.activity.injection;
 
 
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
+import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.app.GamersAppComponent;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModel;
 
@@ -20,5 +21,7 @@ public interface MainActivityComponent {
     TrendingViewModel getPopularViewModel();
 
     PopularViewModel getPopulareViewModel();
+
+    HypedViewModel getHypedViewModel();
 
 }

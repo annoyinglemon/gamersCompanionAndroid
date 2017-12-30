@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,11 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
     @Override
     public void onPageSelected(int position) {

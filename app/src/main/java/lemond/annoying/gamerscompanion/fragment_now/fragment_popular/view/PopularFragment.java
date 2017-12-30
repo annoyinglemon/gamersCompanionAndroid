@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.activity.MainActivity;
+import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.databinding.FragmentPopularBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.DaggerPopularComponent;

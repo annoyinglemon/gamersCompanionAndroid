@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 
-public class PopularViewModelFactory implements ViewModelProvider.Factory{
+public class PopularViewModelFactory implements ViewModelProvider.Factory {
 
     private final PopularModel popularModel;
 

@@ -2,7 +2,7 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection;
 
 
 import dagger.Component;
-import lemond.annoying.gamerscompanion.activity.MainActivityComponent;
+import lemond.annoying.gamerscompanion.activity.injection.MainActivityComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
 
 @PopularFragmentScope
