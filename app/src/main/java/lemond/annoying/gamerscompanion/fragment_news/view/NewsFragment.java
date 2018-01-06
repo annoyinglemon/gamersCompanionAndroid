@@ -29,7 +29,6 @@ public class NewsFragment extends Fragment {
     @Inject
     protected NewsAdapter newsAdapter;
 
-
     public NewsFragment() {}
 
     public static NewsFragment newInstance() {
@@ -46,7 +45,7 @@ public class NewsFragment extends Fragment {
                 .mainActivityComponent(((MainActivity) getActivity()).getComponent())
                 .build();
 
-        component.injectNewsFragment(this);
+        component.inject(this);
 
         binding.newsList.setAdapter(newsAdapter);
 

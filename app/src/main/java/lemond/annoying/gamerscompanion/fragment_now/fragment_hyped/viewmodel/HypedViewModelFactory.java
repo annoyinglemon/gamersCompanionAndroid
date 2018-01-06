@@ -4,11 +4,14 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model.HypedModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
 
+@NowFragmentScope
 public class HypedViewModelFactory implements ViewModelProvider.Factory {
 
     private final HypedModel hypedModel;

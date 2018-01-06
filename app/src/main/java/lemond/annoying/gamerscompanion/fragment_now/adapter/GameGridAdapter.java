@@ -22,7 +22,6 @@ public class GameGridAdapter extends DataStateAdapter<List<Game>> {
 
     private final GlideRequests glideRequests;
 
-    @Inject
     public GameGridAdapter(GlideRequests glideRequests) {
         super(2);
         this.glideRequests = glideRequests;

@@ -8,6 +8,6 @@ import lemond.annoying.gamerscompanion.fragment_news.view.NewsFragment;
 @Component(modules = NewsModule.class, dependencies = MainActivityComponent.class)
 public interface NewsComponent {
 
-    void injectNewsFragment(NewsFragment newsFragment);
+    void inject(NewsFragment newsFragment);
 
 }

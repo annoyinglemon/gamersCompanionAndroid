@@ -3,9 +3,13 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
 import lemond.annoying.gamerscompanion.repository.exception.NoConnectivityException;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.repository.service.DataState;
@@ -14,10 +18,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@NowFragmentScope
 public class HypedModel {
 
     private GameService gameService;
 
+    @Inject
     public HypedModel(GameService gameService) {
         this.gameService = gameService;
     }

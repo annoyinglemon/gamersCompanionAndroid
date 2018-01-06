@@ -27,50 +27,14 @@ public class NowModule {
 
     @Provides
     @NowFragmentScope
-    public TrendingModel provideTrendingModel(GameService gameService) {
-        return new TrendingModel(gameService);
-    }
-
-    @Provides
-    @NowFragmentScope
-    public TrendingViewModelFactory provideTrendingViewModelFactory(TrendingModel trendingModel) {
-        return new TrendingViewModelFactory(trendingModel);
-    }
-
-    @Provides
-    @NowFragmentScope
     public TrendingViewModel provideTrendingViewModel(TrendingViewModelFactory trendingViewModelFactory) {
         return ViewModelProviders.of(nowFragment, trendingViewModelFactory).get(TrendingViewModel.class);
     }
 
     @Provides
     @NowFragmentScope
-    public PopularModel popularModel(GameService gameService) {
-        return new PopularModel(gameService);
-    }
-
-    @Provides
-    @NowFragmentScope
-    public PopularViewModelFactory providePopularViewModelFactory(PopularModel popularModel) {
-        return new PopularViewModelFactory(popularModel);
-    }
-
-    @Provides
-    @NowFragmentScope
     public PopularViewModel providePopularViewModel(PopularViewModelFactory popularViewModelFactory) {
         return ViewModelProviders.of(nowFragment, popularViewModelFactory).get(PopularViewModel.class);
-    }
-
-    @Provides
-    @NowFragmentScope
-    public HypedModel provideHypedModel(GameService gameService) {
-        return new HypedModel(gameService);
-    }
-
-    @Provides
-    @NowFragmentScope
-    public HypedViewModelFactory provideHypedViewModelFactory( HypedModel hypedModel) {
-        return new HypedViewModelFactory(hypedModel);
     }
     
     @Provides

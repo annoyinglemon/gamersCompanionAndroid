@@ -32,24 +32,6 @@ public class NewsModule {
 
     @Provides
     @NewsFragmentScope
-    public NewsAdapter provideNewsAdapter(GlideRequests glideRequests) {
-        return new NewsAdapter(glideRequests);
-    }
-
-    @Provides
-    @NewsFragmentScope
-    public NewsModel provideNewsModel(Resources resources, NewsService newsService) {
-        return new NewsModel(resources, newsService);
-    }
-
-    @Provides
-    @NewsFragmentScope
-    public NewsViewModelFactory provideNewsViewModelFactory(NewsModel newsModel) {
-        return new NewsViewModelFactory(newsModel);
-    }
-
-    @Provides
-    @NewsFragmentScope
     public NewsViewModel provideNewsViewModel(NewsViewModelFactory newsViewModelFactory) {
         return ViewModelProviders.of(newsFragment, newsViewModelFactory).get(NewsViewModel.class);
     }

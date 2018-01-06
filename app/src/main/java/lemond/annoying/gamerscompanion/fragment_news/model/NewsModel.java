@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.service.DataState;
 import lemond.annoying.gamerscompanion.repository.service.NewsService;
@@ -19,6 +21,7 @@ public class NewsModel {
     private Resources resources;
     private NewsService newsService;
 
+    @Inject
     public NewsModel(Resources resources, NewsService newsService) {
         // TODO: 2018-01-05 use this resources to create pulse item viewmodel
         this.resources = resources;
