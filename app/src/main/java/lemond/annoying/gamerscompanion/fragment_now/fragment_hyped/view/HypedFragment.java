@@ -3,6 +3,7 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,13 +14,13 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.databinding.FragmentHypedBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.injection.DaggerHypedComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.injection.HypedComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.injection.HypedModule;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 
 
 public class HypedFragment extends Fragment {
@@ -27,10 +28,10 @@ public class HypedFragment extends Fragment {
     private static final int GRID_COLUMNS_COUNT = 2;
 
     @Inject
-    public HypedViewModel viewModel;
+    protected HypedViewModel viewModel;
 
     @Inject
-    public GameGridAdapter gameGridAdapter;
+    protected GameGridAdapter gameGridAdapter;
 
     private FragmentHypedBinding binding;
 
@@ -50,22 +51,24 @@ public class HypedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_hyped, container, false);
         binding.hypedGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
         binding.hypedGrid.setHasFixedSize(true);
 
         HypedComponent component = DaggerHypedComponent.builder()
                 .hypedModule(new HypedModule(this))
-                .mainActivityComponent(((MainActivity) getActivity()).getComponent())
+                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
                 .build();
 
         component.injectHypedFragment(this);
 
         binding.hypedGrid.setAdapter(gameGridAdapter);
+
+        viewModel.initializeData();
+
         refreshGridSpan();
 
-        viewModel.refreshData(false);
         return binding.getRoot();
     }
 

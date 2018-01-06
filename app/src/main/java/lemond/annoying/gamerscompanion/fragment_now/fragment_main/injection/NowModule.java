@@ -1,14 +1,13 @@
-package lemond.annoying.gamerscompanion.activity.injection;
-
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection;
 
 import android.arch.lifecycle.ViewModelProviders;
 
 import dagger.Module;
 import dagger.Provides;
-import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model.HypedModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModelFactory;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModelFactory;
@@ -18,72 +17,66 @@ import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.
 import lemond.annoying.gamerscompanion.repository.service.GameService;
 
 @Module
-public class MainActivityModule {
+public class NowModule {
 
-    private final MainActivity mainActivity;
+    private final NowFragment nowFragment;
 
-    public MainActivityModule(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public NowModule(NowFragment nowFragment) {
+        this.nowFragment = nowFragment;
     }
 
     @Provides
-    @MainActivityScope
-    public MainActivity provideMainActivity() {
-        return mainActivity;
-    }
-
-    @Provides
-    @MainActivityScope
+    @NowFragmentScope
     public TrendingModel provideTrendingModel(GameService gameService) {
         return new TrendingModel(gameService);
     }
 
     @Provides
-    @MainActivityScope
+    @NowFragmentScope
     public TrendingViewModelFactory provideTrendingViewModelFactory(TrendingModel trendingModel) {
         return new TrendingViewModelFactory(trendingModel);
     }
 
     @Provides
-    @MainActivityScope
-    public TrendingViewModel provideTrendingViewModel(MainActivity mainActivity, TrendingViewModelFactory trendingViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, trendingViewModelFactory).get(TrendingViewModel.class);
+    @NowFragmentScope
+    public TrendingViewModel provideTrendingViewModel(TrendingViewModelFactory trendingViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, trendingViewModelFactory).get(TrendingViewModel.class);
     }
 
     @Provides
-    @MainActivityScope
+    @NowFragmentScope
     public PopularModel popularModel(GameService gameService) {
         return new PopularModel(gameService);
     }
 
     @Provides
-    @MainActivityScope
+    @NowFragmentScope
     public PopularViewModelFactory providePopularViewModelFactory(PopularModel popularModel) {
         return new PopularViewModelFactory(popularModel);
     }
 
     @Provides
-    @MainActivityScope
-    public PopularViewModel providePopularViewModel(MainActivity mainActivity, PopularViewModelFactory popularViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, popularViewModelFactory).get(PopularViewModel.class);
+    @NowFragmentScope
+    public PopularViewModel providePopularViewModel(PopularViewModelFactory popularViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, popularViewModelFactory).get(PopularViewModel.class);
     }
 
     @Provides
-    @MainActivityScope
+    @NowFragmentScope
     public HypedModel provideHypedModel(GameService gameService) {
         return new HypedModel(gameService);
     }
 
     @Provides
-    @MainActivityScope
-    public HypedViewModelFactory provideHypedViewModelFactory(HypedModel hypedModel) {
+    @NowFragmentScope
+    public HypedViewModelFactory provideHypedViewModelFactory( HypedModel hypedModel) {
         return new HypedViewModelFactory(hypedModel);
     }
-
+    
     @Provides
-    @MainActivityScope
-    public HypedViewModel provideHypedViewModel(MainActivity mainActivity, HypedViewModelFactory hypedViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, hypedViewModelFactory).get(HypedViewModel.class);
+    @NowFragmentScope
+    public HypedViewModel provideHypedViewModel(HypedViewModelFactory hypedViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, hypedViewModelFactory).get(HypedViewModel.class);
     }
 
 }

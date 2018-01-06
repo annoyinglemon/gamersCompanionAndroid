@@ -1,54 +1,54 @@
-package lemond.annoying.gamerscompanion.fragment_now.adapter;
+package lemond.annoying.gamerscompanion.fragment_news.view;
 
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
-import lemond.annoying.gamerscompanion.databinding.GridItemGameBinding;
+import lemond.annoying.gamerscompanion.databinding.ListItemNewsBinding;
+import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
-import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.repository.service.DataState;
 import lemond.annoying.gamerscompanion.repository.util.ImageUtil;
 
-
-public class GameGridAdapter extends DataStateAdapter<List<Game>> {
-
+public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
 
     private final GlideRequests glideRequests;
 
     @Inject
-    public GameGridAdapter(GlideRequests glideRequests) {
-        super(2);
+    public NewsAdapter(GlideRequests glideRequests) {
         this.glideRequests = glideRequests;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == DataState.State.CONTENT.ordinal()) {
-            List<Game> data = currentDataState.data;
-            Game game = data.get(position);
-            GameGridViewHolder gameGridViewHolder = ((GameGridViewHolder) holder);
-            gameGridViewHolder.bindGame(game);
+            List<NewsItemViewModel> data = currentDataState.data;
+            NewsItemViewModel newsItemViewModel = data.get(position);
+            NewsViewHolder newsViewHolder = ((NewsViewHolder) holder);
+            newsViewHolder.bindPulseViewModel(newsItemViewModel);
             glideRequests
-                    .load(ImageUtil.getLargeCoverImageUrl(game.cover.url))
+                    .load(ImageUtil.getLargeCoverImageUrl(newsItemViewModel.getPulse().image))
                     .placeholder(R.drawable.ic_placeholder_image)
                     .error(R.drawable.ic_error_image)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(gameGridViewHolder.getBinding().gameGridItemImage);
+                    .into(newsViewHolder.getBinding().imageNewsImageview);
         }
     }
 
     @Override
     public RecyclerView.ViewHolder getContentViewHolder(ViewGroup parent) {
-        GridItemGameBinding loadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.grid_item_game, parent, false);
-        return new GameGridViewHolder(loadingBinding);
+        ListItemNewsBinding loadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_item_news, parent, false);
+        return new NewsViewHolder(loadingBinding);
     }
-
 
 }

@@ -17,17 +17,17 @@ public class HypedViewModel extends ViewModel {
 
     private MutableLiveData<DataState<List<Game>>> hypedGames;
     private HypedModel hypedModel;
-    private boolean isRefreshDataTriggered;
+    private boolean isDataInitialized;
 
     @Inject
     public HypedViewModel(HypedModel hypedModel) {
         this.hypedModel = hypedModel;
     }
 
-    public void refreshData(boolean forceRefresh) {
-        if (!isRefreshDataTriggered || forceRefresh) {
+    public void initializeData() {
+        if (!isDataInitialized) {
             this.hypedGames = hypedModel.getHypedGames();
-            isRefreshDataTriggered = true;
+            isDataInitialized = true;
         }
     }
 
@@ -37,5 +37,4 @@ public class HypedViewModel extends ViewModel {
         }
         return this.hypedGames;
     }
-
 }

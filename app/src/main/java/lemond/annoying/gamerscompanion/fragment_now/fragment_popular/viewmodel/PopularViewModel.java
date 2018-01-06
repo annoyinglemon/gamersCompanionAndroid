@@ -24,8 +24,8 @@ public class PopularViewModel extends ViewModel {
         this.popularModel = popularModel;
     }
 
-    public void refreshData(boolean forceRefresh) {
-        if (!isRefreshDataTriggered || forceRefresh) {
+    public void initializeData() {
+        if (!isRefreshDataTriggered) {
             this.popularGames = popularModel.getPopularGames();
             isRefreshDataTriggered = true;
         }

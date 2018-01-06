@@ -2,17 +2,17 @@ package lemond.annoying.gamerscompanion.app.module;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.app.GamersApplicationScope;
 
-//provides the external module such as context
 @Module
 public class AppContextModule {
 
     private final Context context;
-    // when this instances is created, context is required
+
     public AppContextModule(Context context) {
         this.context = context.getApplicationContext();
     }
@@ -21,5 +21,11 @@ public class AppContextModule {
     @GamersApplicationScope
     public Context provideContext() {
         return context;
+    }
+
+    @Provides
+    @GamersApplicationScope
+    public Resources provideResources() {
+        return context.getResources();
     }
 }

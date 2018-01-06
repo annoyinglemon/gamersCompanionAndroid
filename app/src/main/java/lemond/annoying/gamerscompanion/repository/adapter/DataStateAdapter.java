@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-
-
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemEmptyBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemErrorBinding;
@@ -25,6 +23,7 @@ import static lemond.annoying.gamerscompanion.repository.service.DataState.State
 public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected DataState<T> currentDataState;
+    private int columnCount;
 
     class StateViewHolder extends RecyclerView.ViewHolder {
         StateViewHolder(ViewDataBinding viewDataBinding) {
@@ -33,6 +32,11 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
     }
 
     protected DataStateAdapter() {
+        this(1);
+    }
+
+    protected DataStateAdapter(int columnCount) {
+        this.columnCount = columnCount;
         currentDataState = new DataState<>();
         currentDataState.state = LOADING;
         currentDataState.size = 1;
@@ -110,7 +114,7 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
         if (currentDataState.data != null && currentDataState.size > 0 && currentDataState.state == CONTENT || position > 0) {
             return 1;
         } else {
-            return 2;
+            return this.columnCount;
         }
     }
 

@@ -3,4 +3,35 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pulse_author">by %s</string>
+
+    <!-- FOR NEWS PUBLISH TIME PAST -->
+    <string name="publish_past_day">%s days ago</string>
+    <string name="publish_past_one_day">%s day ago</string>
+    <string name="publish_past_hour">%s hours ago</string>
+    <string name="publish_past_one_hour">%s hour ago</string>
+    <string name="publish_past_minute">%s minutes ago</string>
+    <string name="publish_past_one_minute">%s minute ago</string>
+    <string name="publish_past_second">%s seconds ago</string>
+    <string name="publish_past_one_second">%s second ago</string>
+    <string name="publish_past_moment">moments ago</string>
+
+    <plurals name="publish_past_day">
+        <item quantity="other">@string/publish_past_day</item>
+        <item quantity="one">@string/publish_past_one_day</item>
+    </plurals>
+    <plurals name="publish_past_hour">
+        <item quantity="other">@string/publish_past_hour</item>
+        <item quantity="one">@string/publish_past_one_hour</item>
+    </plurals>
+    <plurals name="publish_past_minute">
+        <item quantity="other">@string/publish_past_minute</item>
+        <item quantity="one">@string/publish_past_one_minute</item>
+    </plurals>
+    <plurals name="publish_past_second">
+        <item quantity="other">@string/publish_past_second</item>
+        <item quantity="one">@string/publish_past_one_second</item>
+    </plurals>
+
 </resources>

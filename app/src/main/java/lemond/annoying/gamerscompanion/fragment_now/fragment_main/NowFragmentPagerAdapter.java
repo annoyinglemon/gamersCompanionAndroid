@@ -12,6 +12,14 @@ import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFra
 
 public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
+    private static final int FRAGMENT_TRENDING_POSITION = 0;
+    private static final int FRAGMENT_POPULAR_POSITION = 1;
+    private static final int FRAGMENT_HYPED_POSITION = 2;
+
+    private static final String TAB_TEXT_TRENDING = "trending";
+    private static final String TAB_TEXT_POPULAR = "popular";
+    private static final String TAB_TEXT_HYPED = "hyped";
+
     public NowFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -24,27 +32,26 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        // TODO: 2017-12-17 use resource string
         switch (position) {
-            case 1:
-                return "Popular";
-            case 2:
-                return "Hyped";
+            case FRAGMENT_POPULAR_POSITION:
+                return TAB_TEXT_POPULAR;
+            case FRAGMENT_HYPED_POSITION:
+                return TAB_TEXT_HYPED;
             default:
-            case 0:
-                return "Trending";
+            case FRAGMENT_TRENDING_POSITION:
+                return TAB_TEXT_TRENDING;
         }
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 1:
+            case FRAGMENT_POPULAR_POSITION:
                 return PopularFragment.newInstance();
-            case 2:
+            case FRAGMENT_HYPED_POSITION:
                 return HypedFragment.newInstance();
             default:
-            case 0:
+            case FRAGMENT_TRENDING_POSITION:
                 return TrendingFragment.newInstance();
         }
     }

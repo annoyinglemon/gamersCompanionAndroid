@@ -6,6 +6,8 @@
 
     <color name="colorIconTint">#758087</color>
 
+    <color name="colorPrimaryVeryLight">#a4acb2</color>
+
     <color name="colorAccent">#f5f5f5</color>
     <color name="white">#ffffff</color>
 

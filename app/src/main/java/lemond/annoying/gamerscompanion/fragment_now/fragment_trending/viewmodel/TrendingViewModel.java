@@ -24,8 +24,8 @@ public class TrendingViewModel extends ViewModel {
         this.trendingModel = trendingModel;
     }
 
-    public void refreshData(boolean forceRefresh) {
-        if (!isRefreshDataTriggered || forceRefresh) {
+    public void initializeData() {
+        if (!isRefreshDataTriggered) {
             this.trendingGames = trendingModel.getTrendingGames();
             isRefreshDataTriggered = true;
         }

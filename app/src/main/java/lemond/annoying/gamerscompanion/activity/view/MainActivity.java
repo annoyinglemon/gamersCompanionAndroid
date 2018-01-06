@@ -13,11 +13,10 @@ import android.view.MenuItem;
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.activity.injection.DaggerMainActivityComponent;
 import lemond.annoying.gamerscompanion.activity.injection.MainActivityComponent;
-import lemond.annoying.gamerscompanion.activity.injection.MainActivityModule;
 import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.databinding.ActivityMainBinding;
 import lemond.annoying.gamerscompanion.app.GamersApplication;
-import lemond.annoying.gamerscompanion.fragment_news.NewsFragment;
+import lemond.annoying.gamerscompanion.fragment_news.view.NewsFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_search.SearchFragment;
 
@@ -41,11 +40,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         component = DaggerMainActivityComponent.builder()
-                .mainActivityModule(new MainActivityModule(this))
                 .gamersAppComponent(GamersApplication.get(this).getGamersAppComponent())
                 .build();
-
-        component.injectMainActivity(this);
 
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 

@@ -75,8 +75,12 @@ public class NetworkModule {
     public Interceptor provideConnectivityInterceptor(Context context) {
         return chain -> {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-            if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+            if (connectivityManager != null) {
+                NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+                if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+                    throw new NoConnectivityException();
+                }
+            } else {
                 throw new NoConnectivityException();
             }
             Request.Builder builder = chain.request().newBuilder();

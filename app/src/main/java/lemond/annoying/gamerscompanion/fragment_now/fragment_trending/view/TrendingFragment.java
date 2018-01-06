@@ -15,8 +15,8 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.FragmentTrendingBinding;
-import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.DaggerTrendingComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.TrendingComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.TrendingModule;
@@ -28,10 +28,10 @@ public class TrendingFragment extends Fragment {
     private static final int GRID_COLUMNS_COUNT = 2;
 
     @Inject
-    public TrendingViewModel viewModel;
+    protected TrendingViewModel viewModel;
 
     @Inject
-    public GameGridAdapter gameGridAdapter;
+    protected GameGridAdapter gameGridAdapter;
 
     private FragmentTrendingBinding binding;
 
@@ -58,15 +58,16 @@ public class TrendingFragment extends Fragment {
 
         TrendingComponent component = DaggerTrendingComponent.builder()
                 .trendingModule(new TrendingModule(this))
-                .mainActivityComponent(((MainActivity) getActivity()).getComponent())
+                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
                 .build();
 
         component.injectTrendingFragment(this);
 
         binding.trendingGrid.setAdapter(gameGridAdapter);
-        refreshGridSpan();
 
-        viewModel.refreshData(false);
+        viewModel.initializeData();
+
+        refreshGridSpan();
 
         return binding.getRoot();
     }
