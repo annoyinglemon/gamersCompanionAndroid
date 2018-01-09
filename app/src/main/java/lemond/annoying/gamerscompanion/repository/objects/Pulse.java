@@ -8,8 +8,6 @@ public class Pulse {
     public String title;
     public String image;
     public String author;
-    public long created_at;
-    public long updated_at;
     public long published_at;
 
 }

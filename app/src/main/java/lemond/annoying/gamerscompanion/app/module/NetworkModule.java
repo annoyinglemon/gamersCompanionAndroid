@@ -21,6 +21,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
@@ -108,13 +109,20 @@ public class NetworkModule {
         return gsonBuilder.create();
     }
 
+    @Provides
+    @GamersApplicationScope
+    public RxJava2CallAdapterFactory provideRxJava2AdapterFactory() {
+        return RxJava2CallAdapterFactory.create();
+    }
+
     // this method provide dependency on GameServiceModule that has a 'retrofit' on its provide method
     @Provides
     @GamersApplicationScope
-    public Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson, RxJava2CallAdapterFactory rxJavaFactory) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(rxJavaFactory)
                 .client(okHttpClient)
                 .build();
     }
