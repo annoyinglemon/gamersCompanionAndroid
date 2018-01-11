@@ -18,9 +18,8 @@ import lemond.annoying.gamerscompanion.databinding.FragmentTrendingBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.DaggerTrendingComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.TrendingComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.TrendingModule;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingFragmentViewModel;
 
 
 public class TrendingFragment extends Fragment {
@@ -28,7 +27,7 @@ public class TrendingFragment extends Fragment {
     private static final int GRID_COLUMNS_COUNT = 2;
 
     @Inject
-    protected TrendingViewModel viewModel;
+    protected TrendingFragmentViewModel viewModel;
 
     @Inject
     protected GameGridAdapter gameGridAdapter;
@@ -42,10 +41,19 @@ public class TrendingFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DaggerTrendingComponent.builder()
+                .trendingModule(new TrendingModule(this))
+                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
+                .build().injectTrendingFragment(this);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getTrendingGames().observe(this, dataState -> {
-            gameGridAdapter.setCurrentDataState(dataState);
+        viewModel.getData().observe(this, dataWrapper -> {
+            gameGridAdapter.setCurrentDataWrapper(dataWrapper);
             refreshGridSpan();
         });
     }
@@ -56,16 +64,9 @@ public class TrendingFragment extends Fragment {
         binding.trendingGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
         binding.trendingGrid.setHasFixedSize(true);
 
-        TrendingComponent component = DaggerTrendingComponent.builder()
-                .trendingModule(new TrendingModule(this))
-                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
-                .build();
-
-        component.injectTrendingFragment(this);
-
         binding.trendingGrid.setAdapter(gameGridAdapter);
 
-        viewModel.initializeData();
+        viewModel.fetchData(false);
 
         refreshGridSpan();
 

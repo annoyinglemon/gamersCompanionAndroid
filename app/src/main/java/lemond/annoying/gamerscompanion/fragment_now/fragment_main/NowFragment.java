@@ -3,6 +3,7 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -30,14 +31,17 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_now, container, false);
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         component = DaggerNowFragmentComponent.builder()
                 .mainActivityComponent(((MainActivity)getActivity()).getComponent())
                 .nowModule(new NowModule(this))
                 .build();
+    }
 
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_now, container, false);
 
         NowFragmentPagerAdapter mainFragmentPagerAdapter = new NowFragmentPagerAdapter(getChildFragmentManager());
 

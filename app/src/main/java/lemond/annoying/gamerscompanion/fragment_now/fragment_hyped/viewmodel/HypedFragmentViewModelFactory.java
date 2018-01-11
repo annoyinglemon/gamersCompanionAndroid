@@ -4,29 +4,28 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import javax.inject.Inject;
 
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model.HypedModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model.HypedRepository;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
 
 @NowFragmentScope
-public class HypedViewModelFactory implements ViewModelProvider.Factory {
+public class HypedFragmentViewModelFactory implements ViewModelProvider.Factory {
 
-    private final HypedModel hypedModel;
+    private final HypedRepository hypedRepository;
 
     @Inject
-    public HypedViewModelFactory(HypedModel hypedModel) {
-        this.hypedModel = hypedModel;
+    HypedFragmentViewModelFactory(HypedRepository hypedRepository) {
+        this.hypedRepository = hypedRepository;
     }
 
     @Override
     @NonNull
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(HypedViewModel.class)) {
-            return (T) new HypedViewModel(hypedModel);
+        if (modelClass.isAssignableFrom(HypedFragmentViewModel.class)) {
+            return (T) new HypedFragmentViewModel(hypedRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

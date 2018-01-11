@@ -4,29 +4,28 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularRepository;
 
 @NowFragmentScope
 public class PopularViewModelFactory implements ViewModelProvider.Factory {
 
-    private final PopularModel popularModel;
+    private final PopularRepository popularRepository;
 
     @Inject
-    public PopularViewModelFactory(PopularModel popularModel) {
-        this.popularModel = popularModel;
+    PopularViewModelFactory(PopularRepository popularRepository) {
+        this.popularRepository = popularRepository;
     }
 
     @Override
     @NonNull
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(PopularViewModel.class)) {
-            return (T) new PopularViewModel(popularModel);
+        if (modelClass.isAssignableFrom(PopularFragmentViewModel.class)) {
+            return (T) new PopularFragmentViewModel(popularRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

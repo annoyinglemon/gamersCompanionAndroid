@@ -12,7 +12,7 @@ public class NewsServiceModule {
 
     @Provides
     @GamersApplicationScope
-    public NewsService provideNewsService(Retrofit retrofit) {
+    NewsService provideNewsService(Retrofit retrofit) {
         return retrofit.create(NewsService.class);
     }
 

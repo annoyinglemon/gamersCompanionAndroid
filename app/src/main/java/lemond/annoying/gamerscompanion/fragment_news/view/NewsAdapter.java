@@ -18,7 +18,7 @@ import lemond.annoying.gamerscompanion.databinding.ListItemNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.injection.NewsFragmentScope;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
-import lemond.annoying.gamerscompanion.repository.service.DataState;
+import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
 @NewsFragmentScope
 public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
@@ -26,14 +26,14 @@ public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
     private final GlideRequests glideRequests;
 
     @Inject
-    public NewsAdapter(GlideRequests glideRequests) {
+    NewsAdapter(GlideRequests glideRequests) {
         this.glideRequests = glideRequests;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == DataState.State.CONTENT.ordinal()) {
-            List<NewsItemViewModel> data = currentDataState.data;
+        if (getItemViewType(position) == DataWrapper.State.CONTENT.ordinal()) {
+            List<NewsItemViewModel> data = currentDataWrapper.data;
             NewsItemViewModel newsItemViewModel = data.get(position);
             NewsViewHolder newsViewHolder = ((NewsViewHolder) holder);
             newsViewHolder.bindPulseViewModel(newsItemViewModel);

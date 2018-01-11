@@ -20,7 +20,7 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private static final String TAB_TEXT_POPULAR = "popular";
     private static final String TAB_TEXT_HYPED = "hyped";
 
-    public NowFragmentPagerAdapter(FragmentManager fm) {
+    NowFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

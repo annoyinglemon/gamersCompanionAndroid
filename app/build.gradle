@@ -11,6 +11,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        buildConfigField "String", "SERVER_URL", "\"https://api-2445582011268.apicast.io\""
+        buildConfigField "String", "API_KEY", ServerApiKey
     }
     buildTypes {
         release {

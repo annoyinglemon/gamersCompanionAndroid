@@ -18,7 +18,7 @@ import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.injection.DaggerNewsComponent;
 import lemond.annoying.gamerscompanion.fragment_news.injection.NewsComponent;
 import lemond.annoying.gamerscompanion.fragment_news.injection.NewsModule;
-import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsViewModel;
+import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 
 
 public class NewsFragment extends Fragment {
@@ -26,7 +26,7 @@ public class NewsFragment extends Fragment {
     private FragmentNewsBinding binding;
 
     @Inject
-    protected NewsViewModel viewModel;
+    protected NewsFragmentViewModel viewModel;
 
     @Inject
     protected NewsAdapter newsAdapter;
@@ -40,8 +40,8 @@ public class NewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getLatestNews().observe(this, dataState -> {
-            newsAdapter.setCurrentDataState(dataState);
+        viewModel.getData().observe(this, dataState -> {
+            newsAdapter.setCurrentDataWrapper(dataState);
         });
     }
 
@@ -60,7 +60,7 @@ public class NewsFragment extends Fragment {
         binding.newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.newsList.setAdapter(newsAdapter);
 
-        viewModel.initializeData();
+        viewModel.fetchData(false);
 
         return binding.getRoot();
     }

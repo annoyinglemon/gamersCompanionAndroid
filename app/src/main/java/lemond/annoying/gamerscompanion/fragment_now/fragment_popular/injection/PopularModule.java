@@ -19,13 +19,13 @@ public class PopularModule {
 
     @Provides
     @PopularFragmentScope
-    public GlideRequests provideGlideRequests() {
+    GlideRequests provideGlideRequests() {
         return GlideApp.with(popularFragment);
     }
 
     @Provides
     @PopularFragmentScope
-    public GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
+    GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
         return new GameGridAdapter(glideRequests);
     }
 

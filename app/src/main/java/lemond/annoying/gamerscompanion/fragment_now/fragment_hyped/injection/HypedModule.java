@@ -18,13 +18,13 @@ public class HypedModule {
 
     @Provides
     @HypedFragmentScope
-    public GlideRequests provideGlideRequests() {
+    GlideRequests provideGlideRequests() {
         return GlideApp.with(hypedFragment);
     }
 
     @Provides
     @HypedFragmentScope
-    public GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
+    GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
         return new GameGridAdapter(glideRequests);
     }
 }

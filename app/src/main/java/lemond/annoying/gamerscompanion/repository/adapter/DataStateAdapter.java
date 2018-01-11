@@ -12,17 +12,17 @@ import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemEmptyBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemErrorBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemLoadingBinding;
 import lemond.annoying.gamerscompanion.databinding.RecyclerviewItemNoInternetBinding;
-import lemond.annoying.gamerscompanion.repository.service.DataState;
+import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
-import static lemond.annoying.gamerscompanion.repository.service.DataState.State.CONTENT;
-import static lemond.annoying.gamerscompanion.repository.service.DataState.State.EMPTY;
-import static lemond.annoying.gamerscompanion.repository.service.DataState.State.ERROR;
-import static lemond.annoying.gamerscompanion.repository.service.DataState.State.NO_INTERNET;
-import static lemond.annoying.gamerscompanion.repository.service.DataState.State.LOADING;
+import static lemond.annoying.gamerscompanion.repository.service.DataWrapper.State.CONTENT;
+import static lemond.annoying.gamerscompanion.repository.service.DataWrapper.State.EMPTY;
+import static lemond.annoying.gamerscompanion.repository.service.DataWrapper.State.ERROR;
+import static lemond.annoying.gamerscompanion.repository.service.DataWrapper.State.NO_INTERNET;
+import static lemond.annoying.gamerscompanion.repository.service.DataWrapper.State.LOADING;
 
 public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    protected DataState<T> currentDataState;
+    protected DataWrapper<T> currentDataWrapper;
     private int columnCount;
 
     class StateViewHolder extends RecyclerView.ViewHolder {
@@ -37,16 +37,16 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     protected DataStateAdapter(int columnCount) {
         this.columnCount = columnCount;
-        currentDataState = new DataState<>();
-        currentDataState.state = LOADING;
-        currentDataState.size = 1;
+        currentDataWrapper = new DataWrapper<>();
+        currentDataWrapper.state = LOADING;
+        currentDataWrapper.size = 1;
     }
 
-    public void setCurrentDataState(DataState<T> dataState) {
+    public void setCurrentDataWrapper(DataWrapper<T> dataWrapper) {
         int previousCount = getItemCount();
-        currentDataState.state = dataState.state;
-        currentDataState.data = dataState.data;
-        currentDataState.size = dataState.size;
+        currentDataWrapper.state = dataWrapper.state;
+        currentDataWrapper.data = dataWrapper.data;
+        currentDataWrapper.size = dataWrapper.size;
         notifyChanges(previousCount, getItemCount());
     }
 
@@ -64,7 +64,7 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DataState.State state = DataState.State.values()[viewType];
+        DataWrapper.State state = DataWrapper.State.values()[viewType];
         switch (state) {
             case ERROR:
                 RecyclerviewItemErrorBinding errorBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recyclerview_item_error, parent, false);
@@ -87,7 +87,7 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            switch (currentDataState.state) {
+            switch (currentDataWrapper.state) {
                 case ERROR:
                     return ERROR.ordinal();
                 case NO_INTERNET:
@@ -98,7 +98,7 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
                     return CONTENT.ordinal();
                 default:
                 case LOADING:
-                    return DataState.State.LOADING.ordinal();
+                    return DataWrapper.State.LOADING.ordinal();
             }
         } else {
             return CONTENT.ordinal();
@@ -107,11 +107,11 @@ public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemCount() {
-        return currentDataState.size;
+        return currentDataWrapper.size;
     }
 
     public int getSpanSizeForGrid(int position) {
-        if (currentDataState.data != null && currentDataState.size > 0 && currentDataState.state == CONTENT || position > 0) {
+        if (currentDataWrapper.data != null && currentDataWrapper.size > 0 && currentDataWrapper.state == CONTENT || position > 0) {
             return 1;
         } else {
             return this.columnCount;

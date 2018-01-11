@@ -7,23 +7,23 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import lemond.annoying.gamerscompanion.fragment_news.model.NewsModel;
+import lemond.annoying.gamerscompanion.fragment_news.model.NewsRepository;
 
-public class NewsViewModelFactory implements ViewModelProvider.Factory {
+public class NewsFragmentViewModelFactory implements ViewModelProvider.Factory {
 
-    private final NewsModel newsModel;
+    private final NewsRepository newsRepository;
 
     @Inject
-    public NewsViewModelFactory(NewsModel newsModel) {
-        this.newsModel = newsModel;
+    NewsFragmentViewModelFactory(NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
     }
 
     @Override
     @NonNull
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(NewsViewModel.class)) {
-            return (T) new NewsViewModel(newsModel);
+        if (modelClass.isAssignableFrom(NewsFragmentViewModel.class)) {
+            return (T) new NewsFragmentViewModel(newsRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

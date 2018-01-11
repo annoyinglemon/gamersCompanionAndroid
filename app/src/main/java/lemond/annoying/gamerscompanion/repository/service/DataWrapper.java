@@ -2,7 +2,7 @@ package lemond.annoying.gamerscompanion.repository.service;
 
 
 
-public class DataState<T> {
+public class DataWrapper<T> {
 
     public enum State {
         LOADING,

@@ -4,17 +4,13 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import dagger.Module;
 import dagger.Provides;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.model.HypedModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModelFactory;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModelFactory;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularFragmentViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModelFactory;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.model.TrendingModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingFragmentViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModelFactory;
-import lemond.annoying.gamerscompanion.repository.service.GameService;
 
 @Module
 public class NowModule {
@@ -27,20 +23,20 @@ public class NowModule {
 
     @Provides
     @NowFragmentScope
-    public TrendingViewModel provideTrendingViewModel(TrendingViewModelFactory trendingViewModelFactory) {
-        return ViewModelProviders.of(nowFragment, trendingViewModelFactory).get(TrendingViewModel.class);
+    TrendingFragmentViewModel provideTrendingFragmentViewModel(TrendingViewModelFactory trendingViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, trendingViewModelFactory).get(TrendingFragmentViewModel.class);
     }
 
     @Provides
     @NowFragmentScope
-    public PopularViewModel providePopularViewModel(PopularViewModelFactory popularViewModelFactory) {
-        return ViewModelProviders.of(nowFragment, popularViewModelFactory).get(PopularViewModel.class);
+    PopularFragmentViewModel providePopularFragmentViewModel(PopularViewModelFactory popularViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, popularViewModelFactory).get(PopularFragmentViewModel.class);
     }
     
     @Provides
     @NowFragmentScope
-    public HypedViewModel provideHypedViewModel(HypedViewModelFactory hypedViewModelFactory) {
-        return ViewModelProviders.of(nowFragment, hypedViewModelFactory).get(HypedViewModel.class);
+    HypedFragmentViewModel provideHypedFragmentViewModel(HypedFragmentViewModelFactory hypedFragmentViewModelFactory) {
+        return ViewModelProviders.of(nowFragment, hypedFragmentViewModelFactory).get(HypedFragmentViewModel.class);
     }
 
 }

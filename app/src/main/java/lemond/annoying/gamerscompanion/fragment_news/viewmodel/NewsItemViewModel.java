@@ -12,8 +12,8 @@ import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 
 public class NewsItemViewModel {
 
-    private Resources resources;
-    private Pulse pulse;
+    private final Resources resources;
+    private final Pulse pulse;
 
     public NewsItemViewModel(Resources resources, Pulse pulse) {
         this.resources = resources;

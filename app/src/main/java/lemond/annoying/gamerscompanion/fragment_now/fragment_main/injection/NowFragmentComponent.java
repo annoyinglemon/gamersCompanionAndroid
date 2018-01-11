@@ -2,9 +2,9 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection;
 
 import dagger.Component;
 import lemond.annoying.gamerscompanion.activity.injection.MainActivityComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularFragmentViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingFragmentViewModel;
 
 
 @NowFragmentScope
@@ -15,10 +15,10 @@ import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.
         dependencies = MainActivityComponent.class)
 public interface NowFragmentComponent {
 
-    TrendingViewModel getTrendingViewModel();
+    TrendingFragmentViewModel getTrendingViewModel();
 
-    PopularViewModel getPopularViewModel();
+    PopularFragmentViewModel getPopularViewModel();
 
-    HypedViewModel getHypedViewModel();
+    HypedFragmentViewModel getHypedViewModel();
 
 }

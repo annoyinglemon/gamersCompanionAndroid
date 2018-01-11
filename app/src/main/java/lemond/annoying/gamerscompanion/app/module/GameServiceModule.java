@@ -14,7 +14,7 @@ public class GameServiceModule {
 
     @Provides
     @GamersApplicationScope
-    public GameService provideGameService(Retrofit retrofit) {
+    GameService provideGameService(Retrofit retrofit) {
         return retrofit.create(GameService.class);
     }
 

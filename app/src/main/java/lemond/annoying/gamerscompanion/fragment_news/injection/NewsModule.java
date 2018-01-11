@@ -2,18 +2,14 @@ package lemond.annoying.gamerscompanion.fragment_news.injection;
 
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.res.Resources;
 
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
-import lemond.annoying.gamerscompanion.fragment_news.model.NewsModel;
-import lemond.annoying.gamerscompanion.fragment_news.view.NewsAdapter;
 import lemond.annoying.gamerscompanion.fragment_news.view.NewsFragment;
-import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsViewModel;
-import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsViewModelFactory;
-import lemond.annoying.gamerscompanion.repository.service.NewsService;
+import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
+import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModelFactory;
 
 @Module
 public class NewsModule {
@@ -26,14 +22,14 @@ public class NewsModule {
 
     @Provides
     @NewsFragmentScope
-    public GlideRequests provideGlideRequests() {
+    GlideRequests provideGlideRequests() {
         return GlideApp.with(newsFragment);
     }
 
     @Provides
     @NewsFragmentScope
-    public NewsViewModel provideNewsViewModel(NewsViewModelFactory newsViewModelFactory) {
-        return ViewModelProviders.of(newsFragment, newsViewModelFactory).get(NewsViewModel.class);
+    NewsFragmentViewModel provideNewsFragmentViewModel(NewsFragmentViewModelFactory newsFragmentViewModelFactory) {
+        return ViewModelProviders.of(newsFragment, newsFragmentViewModelFactory).get(NewsFragmentViewModel.class);
     }
 
 }

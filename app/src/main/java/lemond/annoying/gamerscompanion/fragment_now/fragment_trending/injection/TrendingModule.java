@@ -20,13 +20,13 @@ public class TrendingModule {
 
     @Provides
     @TrendingFragmentScope
-    public GlideRequests provideGlideRequests() {
+    GlideRequests provideGlideRequests() {
         return GlideApp.with(trendingFragment);
     }
 
     @Provides
     @TrendingFragmentScope
-    public GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
+    GameGridAdapter provideGameGridAdapter(GlideRequests glideRequests) {
         return new GameGridAdapter(glideRequests);
     }
 

@@ -18,16 +18,15 @@ import lemond.annoying.gamerscompanion.databinding.FragmentPopularBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.DaggerPopularComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularComponent;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularModule;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularFragmentViewModel;
 
 public class PopularFragment extends Fragment {
 
     private static final int GRID_COLUMNS_COUNT = 2;
 
     @Inject
-    protected PopularViewModel viewModel;
+    protected PopularFragmentViewModel viewModel;
 
     @Inject
     protected GameGridAdapter gameGridAdapter;
@@ -41,10 +40,19 @@ public class PopularFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DaggerPopularComponent.builder()
+                .popularModule(new PopularModule(this))
+                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
+                .build().injectPopularFragment(this);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getPopularGames().observe(this, dataState -> {
-            gameGridAdapter.setCurrentDataState(dataState);
+        viewModel.getData().observe(this, dataWrapper -> {
+            gameGridAdapter.setCurrentDataWrapper(dataWrapper);
             refreshGridSpan();
         });
     }
@@ -55,16 +63,9 @@ public class PopularFragment extends Fragment {
         binding.popularGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
         binding.popularGrid.setHasFixedSize(true);
 
-        PopularComponent component = DaggerPopularComponent.builder()
-                .popularModule(new PopularModule(this))
-                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
-                .build();
-
-        component.injectPopularFragment(this);
-
         binding.popularGrid.setAdapter(gameGridAdapter);
 
-        viewModel.initializeData();
+        viewModel.fetchData(false);
 
         refreshGridSpan();
 

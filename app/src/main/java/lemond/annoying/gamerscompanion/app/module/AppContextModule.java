@@ -19,13 +19,13 @@ public class AppContextModule {
 
     @Provides
     @GamersApplicationScope
-    public Context provideContext() {
+    Context provideContext() {
         return context;
     }
 
     @Provides
     @GamersApplicationScope
-    public Resources provideResources() {
+    Resources provideResources() {
         return context.getResources();
     }
 }

@@ -7,17 +7,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import java.util.List;
-import javax.inject.Inject;
+
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
 import lemond.annoying.gamerscompanion.databinding.GridItemGameBinding;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.viewmodel.GameItemViewModel;
 import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
-import lemond.annoying.gamerscompanion.repository.objects.Game;
-import lemond.annoying.gamerscompanion.repository.service.DataState;
-import lemond.annoying.gamerscompanion.repository.util.ImageUtil;
+import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
 
-public class GameGridAdapter extends DataStateAdapter<List<Game>> {
+public class GameGridAdapter extends DataStateAdapter<List<GameItemViewModel>> {
 
 
     private final GlideRequests glideRequests;
@@ -29,13 +28,13 @@ public class GameGridAdapter extends DataStateAdapter<List<Game>> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == DataState.State.CONTENT.ordinal()) {
-            List<Game> data = currentDataState.data;
-            Game game = data.get(position);
+        if (getItemViewType(position) == DataWrapper.State.CONTENT.ordinal()) {
+            List<GameItemViewModel> itemViewModels = currentDataWrapper.data;
+            GameItemViewModel gameItemViewModel = itemViewModels.get(position);
             GameGridViewHolder gameGridViewHolder = ((GameGridViewHolder) holder);
-            gameGridViewHolder.bindGame(game);
+            gameGridViewHolder.bindItemViewModel(gameItemViewModel);
             glideRequests
-                    .load(ImageUtil.getLargeCoverImageUrl(game.cover.url))
+                    .load(gameItemViewModel.getImageUrl())
                     .placeholder(R.drawable.ic_placeholder_image)
                     .error(R.drawable.ic_error_image)
                     .transition(DrawableTransitionOptions.withCrossFade())
