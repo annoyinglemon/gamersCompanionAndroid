@@ -12,11 +12,16 @@ import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 
 public class NewsItemViewModel {
 
-    private final Resources resources;
+    private Resources resources;
     private final Pulse pulse;
 
     public NewsItemViewModel(Resources resources, Pulse pulse) {
         this.resources = resources;
+        this.pulse = pulse;
+    }
+
+    // TODO: 2018-01-12 remove resource here
+    public NewsItemViewModel(Pulse pulse) {
         this.pulse = pulse;
     }
 

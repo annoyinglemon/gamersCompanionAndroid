@@ -41,11 +41,11 @@ public class DataFetcherViewModel<T> extends ViewModel {
             fetchSubscription = dataRepository.fetchData()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onNewsItemVMListFetchSuccess, this::onNewsItemVMListFetchFailed);
+                    .subscribe(this::onFetchSuccess, this::onFetchFailed);
         }
     }
 
-    private void onNewsItemVMListFetchSuccess(T dataResult) {
+    private void onFetchSuccess(T dataResult) {
         DataWrapper<T> dataWrapper = new DataWrapper<>();
         dataWrapper.data = dataResult;
         dataWrapper.size = 1;
@@ -69,7 +69,7 @@ public class DataFetcherViewModel<T> extends ViewModel {
         isDataInitialized = true;
     }
 
-    private void onNewsItemVMListFetchFailed(Throwable throwable) {
+    private void onFetchFailed(Throwable throwable) {
         DataWrapper<T> dataWrapper = new DataWrapper<>();
         if (throwable instanceof NoConnectivityException) {
             dataWrapper.state = DataWrapper.State.NO_INTERNET;

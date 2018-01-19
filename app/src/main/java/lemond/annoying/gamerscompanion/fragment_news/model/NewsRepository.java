@@ -18,8 +18,8 @@ import lemond.annoying.gamerscompanion.repository.util.PulseUtil;
 
 public class NewsRepository implements DataRepository<List<NewsItemViewModel>> {
 
-    private Resources resources;
-    private NewsService newsService;
+    private final Resources resources;
+    private final NewsService newsService;
 
     @Inject
     NewsRepository(Resources resources, NewsService newsService) {

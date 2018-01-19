@@ -3,6 +3,7 @@ package lemond.annoying.gamerscompanion.activity.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
@@ -45,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
-        viewModel.getSelectedPage().observe(this, selectedPage -> {
-            switchFragment(selectedPage);
-        });
+        viewModel.getSelectedPageLiveData().observe(this, this::switchFragment);
 
         binding.mainNavigationBottom.setOnNavigationItemSelectedListener(this);
     }

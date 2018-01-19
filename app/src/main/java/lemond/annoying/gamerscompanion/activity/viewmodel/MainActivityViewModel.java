@@ -3,6 +3,7 @@ package lemond.annoying.gamerscompanion.activity.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.VisibleForTesting;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -21,7 +22,13 @@ public class MainActivityViewModel extends ViewModel {
         this.selectedPage.setValue(selectedPage);
     }
 
-    public MutableLiveData<Integer> getSelectedPage() {
+    public MutableLiveData<Integer> getSelectedPageLiveData() {
         return selectedPage;
     }
+
+    @VisibleForTesting
+    public Integer getSelectedPage() {
+        return selectedPage.getValue();
+    }
+
 }

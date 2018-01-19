@@ -9,7 +9,7 @@ import lemond.annoying.gamerscompanion.repository.viewmodel.DataFetcherViewModel
 
 public class NewsFragmentViewModel extends DataFetcherViewModel<List<NewsItemViewModel>> {
 
-    NewsFragmentViewModel(NewsRepository newsRepository) {
+    public NewsFragmentViewModel(NewsRepository newsRepository) {
         super(newsRepository);
     }
 }
