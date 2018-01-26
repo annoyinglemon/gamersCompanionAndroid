@@ -34,8 +34,7 @@ public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
             newsViewHolder.bindPulseViewModel(newsItemViewModel);
             glideRequests
                     .load(newsItemViewModel.getPulse().image)
-                    .placeholder(R.drawable.ic_placeholder_image)
-                    .error(R.drawable.ic_error_image)
+                    .placeholder(R.color.colorPrimaryVeryLight)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(newsViewHolder.getBinding().imageNewsImageview);
         }

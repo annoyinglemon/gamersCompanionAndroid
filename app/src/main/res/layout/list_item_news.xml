@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/image_news_imageview"
                 android:layout_width="0dp"
-                android:layout_height="178dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="5dp"
                 app:layout_constraintDimensionRatio="4:2"

@@ -35,7 +35,7 @@ public class GameGridAdapter extends DataStateAdapter<List<GameItemViewModel>> {
             gameGridViewHolder.bindItemViewModel(gameItemViewModel);
             glideRequests
                     .load(gameItemViewModel.getImageUrl())
-                    .placeholder(R.drawable.ic_placeholder_image)
+                    .placeholder(R.color.colorPrimaryVeryLight)
                     .error(R.drawable.ic_error_image)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(gameGridViewHolder.getBinding().gameGridItemImage);
