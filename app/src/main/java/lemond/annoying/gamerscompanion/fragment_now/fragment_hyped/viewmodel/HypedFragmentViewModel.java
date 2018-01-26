@@ -9,7 +9,7 @@ import lemond.annoying.gamerscompanion.repository.viewmodel.DataFetcherViewModel
 
 public class HypedFragmentViewModel extends DataFetcherViewModel<List<GameItemViewModel>> {
 
-    public HypedFragmentViewModel(HypedRepository hypedRepository) {
+    HypedFragmentViewModel(HypedRepository hypedRepository) {
         super(hypedRepository);
     }
 }

@@ -14,11 +14,10 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.activity.view.MainActivity;
+import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentTrendingBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.DaggerTrendingComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.injection.TrendingModule;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingFragmentViewModel;
 
 
@@ -29,7 +28,6 @@ public class TrendingFragment extends Fragment {
     @Inject
     protected TrendingFragmentViewModel viewModel;
 
-    @Inject
     protected GameGridAdapter gameGridAdapter;
 
     private FragmentTrendingBinding binding;
@@ -41,12 +39,20 @@ public class TrendingFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerTrendingComponent.builder()
-                .trendingModule(new TrendingModule(this))
-                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
-                .build().injectTrendingFragment(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trending, container, false);
+        binding.trendingGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
+        binding.trendingGrid.setHasFixedSize(true);
+
+        gameGridAdapter = new GameGridAdapter(GlideApp.with(this));
+
+        binding.trendingGrid.setAdapter(gameGridAdapter);
+
+        viewModel.fetchData(false);
+
+        refreshGridSpan();
+
+        return binding.getRoot();
     }
 
     @Override
@@ -56,21 +62,6 @@ public class TrendingFragment extends Fragment {
             gameGridAdapter.setCurrentDataWrapper(dataWrapper);
             refreshGridSpan();
         });
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trending, container, false);
-        binding.trendingGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
-        binding.trendingGrid.setHasFixedSize(true);
-
-        binding.trendingGrid.setAdapter(gameGridAdapter);
-
-        viewModel.fetchData(false);
-
-        refreshGridSpan();
-
-        return binding.getRoot();
     }
 
     private void refreshGridSpan() {

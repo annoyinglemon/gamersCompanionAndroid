@@ -3,7 +3,6 @@ package lemond.annoying.gamerscompanion.activity.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
@@ -12,11 +11,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.activity.injection.DaggerMainActivityComponent;
-import lemond.annoying.gamerscompanion.activity.injection.MainActivityComponent;
 import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
-import lemond.annoying.gamerscompanion.databinding.ActivityMainBinding;
 import lemond.annoying.gamerscompanion.app.GamersApplication;
+import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
+import lemond.annoying.gamerscompanion.app.module.MainActivityModule;
+import lemond.annoying.gamerscompanion.databinding.ActivityMainBinding;
 import lemond.annoying.gamerscompanion.fragment_news.view.NewsFragment;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_search.SearchFragment;
@@ -32,17 +31,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String SEARCH_FRAGMENT_TAG = "search";
 
     private ActivityMainBinding binding;
-    private MainActivityComponent component;
     private MainActivityViewModel viewModel;
+    private ViewControllerComponent viewControllerComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        viewControllerComponent = ((GamersApplication) getApplication()).getGamersAppComponent()
+                .getViewControllerComponent(new MainActivityModule(this));
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        component = DaggerMainActivityComponent.builder()
-                .gamersAppComponent(GamersApplication.get(this).getGamersAppComponent())
-                .build();
 
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
@@ -66,10 +64,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
         }
         return true;
-    }
-
-    public MainActivityComponent getComponent() {
-        return component;
     }
 
     private String getFragmentTagForTab(int position) {
@@ -127,5 +121,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case SEARCH_TAB_INDEX:
                 return SearchFragment.newInstance();
         }
+    }
+
+    public ViewControllerComponent getViewControllerComponent() {
+        return viewControllerComponent;
     }
 }

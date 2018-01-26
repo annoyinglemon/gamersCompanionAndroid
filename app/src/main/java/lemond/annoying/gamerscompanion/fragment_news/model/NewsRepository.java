@@ -1,7 +1,6 @@
 package lemond.annoying.gamerscompanion.fragment_news.model;
 
 
-import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,21 +8,20 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import lemond.annoying.gamerscompanion.app.ViewControllerScope;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.model.DataRepository;
 import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 import lemond.annoying.gamerscompanion.repository.service.NewsService;
 import lemond.annoying.gamerscompanion.repository.util.PulseUtil;
 
-
+@ViewControllerScope
 public class NewsRepository implements DataRepository<List<NewsItemViewModel>> {
 
-    private final Resources resources;
     private final NewsService newsService;
 
     @Inject
-    NewsRepository(Resources resources, NewsService newsService) {
-        this.resources = resources;
+    NewsRepository(NewsService newsService) {
         this.newsService = newsService;
     }
 
@@ -35,7 +33,7 @@ public class NewsRepository implements DataRepository<List<NewsItemViewModel>> {
         }).flatMap(pulseList -> {
             List<NewsItemViewModel> newsItemViewModels = new ArrayList<>();
             for (Pulse pulse : pulseList) {
-                NewsItemViewModel newsItemViewModel = new NewsItemViewModel(resources, pulse);
+                NewsItemViewModel newsItemViewModel = new NewsItemViewModel(pulse);
                 newsItemViewModels.add(newsItemViewModel);
             }
             return Single.just(newsItemViewModels);

@@ -10,22 +10,17 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
 import lemond.annoying.gamerscompanion.databinding.ListItemNewsBinding;
-import lemond.annoying.gamerscompanion.fragment_news.injection.NewsFragmentScope;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
 import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
-@NewsFragmentScope
 public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
 
     private final GlideRequests glideRequests;
 
-    @Inject
     NewsAdapter(GlideRequests glideRequests) {
         this.glideRequests = glideRequests;
     }

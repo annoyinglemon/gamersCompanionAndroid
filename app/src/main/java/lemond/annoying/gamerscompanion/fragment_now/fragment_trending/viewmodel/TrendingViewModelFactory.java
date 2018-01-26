@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
+import lemond.annoying.gamerscompanion.app.ViewControllerScope;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.model.TrendingRepository;
 
 
-@NowFragmentScope
+@ViewControllerScope
 public class TrendingViewModelFactory implements ViewModelProvider.Factory {
 
     private final TrendingRepository trendingRepository;

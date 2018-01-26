@@ -10,7 +10,7 @@ import lemond.annoying.gamerscompanion.repository.viewmodel.DataFetcherViewModel
 
 public class TrendingFragmentViewModel extends DataFetcherViewModel<List<GameItemViewModel>> {
 
-    public TrendingFragmentViewModel(TrendingRepository trendingRepository) {
+    TrendingFragmentViewModel(TrendingRepository trendingRepository) {
         super(trendingRepository);
     }
 }

@@ -2,7 +2,6 @@ package lemond.annoying.gamerscompanion.app.module;
 
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,9 +22,4 @@ public class AppContextModule {
         return context;
     }
 
-    @Provides
-    @GamersApplicationScope
-    Resources provideResources() {
-        return context.getResources();
-    }
 }

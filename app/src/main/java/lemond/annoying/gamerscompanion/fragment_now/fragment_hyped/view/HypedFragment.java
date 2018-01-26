@@ -14,12 +14,10 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentHypedBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.injection.DaggerHypedComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.injection.HypedModule;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
 
 
 public class HypedFragment extends Fragment {
@@ -29,7 +27,6 @@ public class HypedFragment extends Fragment {
     @Inject
     protected HypedFragmentViewModel viewModel;
 
-    @Inject
     protected GameGridAdapter gameGridAdapter;
 
     private FragmentHypedBinding binding;
@@ -41,12 +38,20 @@ public class HypedFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerHypedComponent.builder()
-                .hypedModule(new HypedModule(this))
-                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
-                .build().injectHypedFragment(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_hyped, container, false);
+        binding.hypedGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
+        binding.hypedGrid.setHasFixedSize(true);
+
+        gameGridAdapter = new GameGridAdapter(GlideApp.with(this));
+
+        binding.hypedGrid.setAdapter(gameGridAdapter);
+
+        viewModel.fetchData(false);
+
+        refreshGridSpan();
+
+        return binding.getRoot();
     }
 
     @Override
@@ -56,21 +61,6 @@ public class HypedFragment extends Fragment {
             gameGridAdapter.setCurrentDataWrapper(dataState);
             refreshGridSpan();
         });
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_hyped, container, false);
-        binding.hypedGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
-        binding.hypedGrid.setHasFixedSize(true);
-
-        binding.hypedGrid.setAdapter(gameGridAdapter);
-
-        viewModel.fetchData(false);
-
-        refreshGridSpan();
-
-        return binding.getRoot();
     }
 
     private void refreshGridSpan() {

@@ -13,16 +13,16 @@ import android.view.ViewGroup;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.activity.view.MainActivity;
+import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
 import lemond.annoying.gamerscompanion.databinding.FragmentNowBinding;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.DaggerNowFragmentComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowModule;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
 
 
 public class NowFragment extends Fragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     private FragmentNowBinding binding;
-    private NowFragmentComponent component;
 
     public NowFragment() {}
 
@@ -31,12 +31,21 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
     }
 
     @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        ViewControllerComponent viewControllerComponent = ((MainActivity) getActivity()).getViewControllerComponent();
+        if (childFragment instanceof HypedFragment) {
+            viewControllerComponent.inject((HypedFragment) childFragment);
+        } else if (childFragment instanceof PopularFragment) {
+            viewControllerComponent.inject((PopularFragment) childFragment);
+        } else if (childFragment instanceof TrendingFragment) {
+            viewControllerComponent.inject((TrendingFragment) childFragment);
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        component = DaggerNowFragmentComponent.builder()
-                .mainActivityComponent(((MainActivity)getActivity()).getComponent())
-                .nowModule(new NowModule(this))
-                .build();
     }
 
     @Override
@@ -53,10 +62,6 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
         binding.tablayoutNowFragment.setupWithViewPager(binding.viewpagerNowFragment);
 
         return binding.getRoot();
-    }
-
-    public NowFragmentComponent getComponent() {
-        return component;
     }
 
     @Override

@@ -14,10 +14,8 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.activity.view.MainActivity;
+import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding;
-import lemond.annoying.gamerscompanion.fragment_news.injection.DaggerNewsComponent;
-import lemond.annoying.gamerscompanion.fragment_news.injection.NewsComponent;
-import lemond.annoying.gamerscompanion.fragment_news.injection.NewsModule;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 
 
@@ -28,7 +26,6 @@ public class NewsFragment extends Fragment {
     @Inject
     protected NewsFragmentViewModel viewModel;
 
-    @Inject
     protected NewsAdapter newsAdapter;
 
     public NewsFragment() {}
@@ -40,9 +37,15 @@ public class NewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getData().observe(this, dataState -> {
-            newsAdapter.setCurrentDataWrapper(dataState);
-        });
+        viewModel.getData().observe(this, newsAdapter::setCurrentDataWrapper);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).getViewControllerComponent().inject(this);
+        }
     }
 
     @Override
@@ -50,24 +53,15 @@ public class NewsFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
 
-        NewsComponent component = DaggerNewsComponent.builder()
-                .newsModule(new NewsModule(this))
-                .mainActivityComponent(((MainActivity) getActivity()).getComponent())
-                .build();
-
-        component.inject(this);
-
         binding.newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        newsAdapter = new NewsAdapter(GlideApp.with(this));
+
         binding.newsList.setAdapter(newsAdapter);
 
         viewModel.fetchData(false);
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 }

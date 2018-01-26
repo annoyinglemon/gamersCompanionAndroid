@@ -1,26 +1,17 @@
 package lemond.annoying.gamerscompanion.fragment_news.viewmodel;
 
 
-import android.content.res.Resources;
 import android.view.View;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 
 public class NewsItemViewModel {
 
-    private Resources resources;
     private final Pulse pulse;
 
-    public NewsItemViewModel(Resources resources, Pulse pulse) {
-        this.resources = resources;
-        this.pulse = pulse;
-    }
-
-    // TODO: 2018-01-12 remove resource here
     public NewsItemViewModel(Pulse pulse) {
         this.pulse = pulse;
     }
@@ -43,28 +34,8 @@ public class NewsItemViewModel {
         }
     }
 
-    public String getPublishDateDifference() {
-        long now = System.currentTimeMillis();
-        long diff = now - pulse.published_at;
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        long numberDuration;
-
-        if ((numberDuration = diff / daysInMilli) > 0) {
-            return resources.getQuantityString(R.plurals.publish_past_day, (int) numberDuration, (int) numberDuration);
-        } else if ((numberDuration = diff / hoursInMilli) > 0) {
-            return resources.getQuantityString(R.plurals.publish_past_hour, (int) numberDuration, (int) numberDuration);
-        } else if ((numberDuration = diff / minutesInMilli) > 0) {
-            return resources.getQuantityString(R.plurals.publish_past_minute, (int) numberDuration, (int) numberDuration);
-        } else if ((numberDuration = diff / secondsInMilli) > 0) {
-            return resources.getQuantityString(R.plurals.publish_past_second, (int) numberDuration, (int) numberDuration);
-        } else {
-            return resources.getString(R.string.publish_past_moment);
-        }
+    public PublishedTimeFromNow getPublishDateDifference() {
+        return new PublishedTimeFromNow(pulse.published_at);
     }
 
 }

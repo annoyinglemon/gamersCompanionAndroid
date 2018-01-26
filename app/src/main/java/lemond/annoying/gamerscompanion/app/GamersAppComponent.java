@@ -1,31 +1,23 @@
 package lemond.annoying.gamerscompanion.app;
 
-import android.content.Context;
-import android.content.res.Resources;
-
 
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
-import lemond.annoying.gamerscompanion.app.module.NewsServiceModule;
-import lemond.annoying.gamerscompanion.repository.service.GameService;
-import lemond.annoying.gamerscompanion.app.module.GameServiceModule;
-import lemond.annoying.gamerscompanion.repository.service.NewsService;
+import lemond.annoying.gamerscompanion.app.module.AppContextModule;
+import lemond.annoying.gamerscompanion.app.module.MainActivityModule;
+import lemond.annoying.gamerscompanion.app.module.NetworkModule;
+import lemond.annoying.gamerscompanion.app.module.ServiceModule;
 
 
 @GamersApplicationScope
 @Component(modules = {
         AndroidInjectionModule.class,
-        GameServiceModule.class,
-        NewsServiceModule.class
+        AppContextModule.class,
+        NetworkModule.class,
+        ServiceModule.class,
 })
 public interface GamersAppComponent {
 
-    Context getApplicationContext();
-
-    Resources getAppResources();
-
-    GameService getGameService();
-
-    NewsService getNewsService();
+    ViewControllerComponent getViewControllerComponent(MainActivityModule mainActivityModule);
 
 }

@@ -14,11 +14,9 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentPopularBinding;
 import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.DaggerPopularComponent;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.injection.PopularModule;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularFragmentViewModel;
 
 public class PopularFragment extends Fragment {
@@ -28,7 +26,6 @@ public class PopularFragment extends Fragment {
     @Inject
     protected PopularFragmentViewModel viewModel;
 
-    @Inject
     protected GameGridAdapter gameGridAdapter;
 
     private FragmentPopularBinding binding;
@@ -40,12 +37,20 @@ public class PopularFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerPopularComponent.builder()
-                .popularModule(new PopularModule(this))
-                .nowFragmentComponent(((NowFragment) getParentFragment()).getComponent())
-                .build().injectPopularFragment(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_popular, container, false);
+        binding.popularGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
+        binding.popularGrid.setHasFixedSize(true);
+
+        gameGridAdapter = new GameGridAdapter(GlideApp.with(this));
+
+        binding.popularGrid.setAdapter(gameGridAdapter);
+
+        viewModel.fetchData(false);
+
+        refreshGridSpan();
+
+        return binding.getRoot();
     }
 
     @Override
@@ -55,21 +60,6 @@ public class PopularFragment extends Fragment {
             gameGridAdapter.setCurrentDataWrapper(dataWrapper);
             refreshGridSpan();
         });
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_popular, container, false);
-        binding.popularGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
-        binding.popularGrid.setHasFixedSize(true);
-
-        binding.popularGrid.setAdapter(gameGridAdapter);
-
-        viewModel.fetchData(false);
-
-        refreshGridSpan();
-
-        return binding.getRoot();
     }
 
     private void refreshGridSpan() {

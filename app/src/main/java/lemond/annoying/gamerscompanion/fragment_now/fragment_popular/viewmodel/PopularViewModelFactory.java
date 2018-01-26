@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.injection.NowFragmentScope;
+import lemond.annoying.gamerscompanion.app.ViewControllerScope;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularRepository;
 
-@NowFragmentScope
+@ViewControllerScope
 public class PopularViewModelFactory implements ViewModelProvider.Factory {
 
     private final PopularRepository popularRepository;
