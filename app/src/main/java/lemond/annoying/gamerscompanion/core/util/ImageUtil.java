@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.repository.util;
+package lemond.annoying.gamerscompanion.core.util;
 
 
 

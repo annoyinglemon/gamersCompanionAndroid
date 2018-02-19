@@ -31,4 +31,16 @@
         <item quantity="one">@string/publish_past_one_second</item>
     </plurals>
 
+    <string name="genericError">Unfortunately, the server returned an error.</string>
+    <string name="noNetworkError">Please check your internet connection and try again.</string>
+    <string name="settings">Settings</string>
+    <string name="empty_results">Server returned no results.</string>
+
+    <!-- VIEW MORE ITEM STRINGS -->
+    <string name="more_news">More news</string>
+    <string name="more_hyped">More hyped games</string>
+    <string name="more_popular">More popular games</string>
+    <string name="more_trending">More trending games</string>
+
+
 </resources>

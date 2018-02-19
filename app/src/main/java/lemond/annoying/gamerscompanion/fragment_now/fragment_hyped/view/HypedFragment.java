@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import lemond.annoying.gamerscompanion.fragment_now.adapter.GameGridAdapter;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModel;
 
 
-public class HypedFragment extends Fragment {
+public class HypedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private static final int GRID_COLUMNS_COUNT = 2;
 
@@ -40,12 +41,13 @@ public class HypedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_hyped, container, false);
-        binding.hypedGrid.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
-        binding.hypedGrid.setHasFixedSize(true);
 
-        gameGridAdapter = new GameGridAdapter(GlideApp.with(this));
+        binding.swipeRefreshHypedFragment.setLayoutManager(new GridLayoutManager(getActivity(), GRID_COLUMNS_COUNT));
+        binding.swipeRefreshHypedFragment.setOnRefreshListener(this);
 
-        binding.hypedGrid.setAdapter(gameGridAdapter);
+        gameGridAdapter = new GameGridAdapter(GlideApp.with(this), getString(R.string.more_hyped));
+
+        binding.swipeRefreshHypedFragment.setAdapter(gameGridAdapter);
 
         viewModel.fetchData(false);
 
@@ -57,19 +59,28 @@ public class HypedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.getData().observe(this, dataState -> {
-            gameGridAdapter.setCurrentDataWrapper(dataState);
-            refreshGridSpan();
+        viewModel.getLiveData().observe(this, listDataWrapper -> {
+            if (listDataWrapper != null) {
+                gameGridAdapter.setDataList(listDataWrapper.data);
+                binding.swipeRefreshHypedFragment.setDisplayState(listDataWrapper.state);
+                binding.swipeRefreshHypedFragment.setRefreshing(false);
+                refreshGridSpan();
+            }
         });
     }
 
     private void refreshGridSpan() {
-        ((GridLayoutManager) binding.hypedGrid.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        ((GridLayoutManager) binding.swipeRefreshHypedFragment.getLayoutManager()).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 return gameGridAdapter.getSpanSizeForGrid(position);
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        viewModel.fetchData(true);
     }
 
 }

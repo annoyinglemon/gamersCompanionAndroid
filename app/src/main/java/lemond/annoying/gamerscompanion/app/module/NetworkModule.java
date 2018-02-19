@@ -15,7 +15,7 @@ import dagger.Provides;
 import lemond.annoying.gamerscompanion.BuildConfig;
 import lemond.annoying.gamerscompanion.app.GamersApplicationScope;
 import lemond.annoying.gamerscompanion.app.module.qualifier.ConnectivityInterceptor;
-import lemond.annoying.gamerscompanion.repository.exception.NoConnectivityException;
+import lemond.annoying.gamerscompanion.core.exception.NoConnectivityException;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

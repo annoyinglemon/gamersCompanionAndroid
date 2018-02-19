@@ -3,7 +3,6 @@ package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
 import lemond.annoying.gamerscompanion.databinding.FragmentNowBinding;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFragment;
@@ -22,7 +20,10 @@ import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.Trend
 
 public class NowFragment extends Fragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
+
+    private ViewControllerComponent viewControllerComponent;
     private FragmentNowBinding binding;
+
 
     public NowFragment() {}
 
@@ -30,10 +31,13 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
         return new NowFragment();
     }
 
+    public void setViewControllerComponent(ViewControllerComponent viewControllerComponent) {
+        this.viewControllerComponent = viewControllerComponent;
+    }
+
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
-        ViewControllerComponent viewControllerComponent = ((MainActivity) getActivity()).getViewControllerComponent();
         if (childFragment instanceof HypedFragment) {
             viewControllerComponent.inject((HypedFragment) childFragment);
         } else if (childFragment instanceof PopularFragment) {
@@ -41,11 +45,6 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
         } else if (childFragment instanceof TrendingFragment) {
             viewControllerComponent.inject((TrendingFragment) childFragment);
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

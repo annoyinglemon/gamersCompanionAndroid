@@ -50,6 +50,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (fragment instanceof NowFragment) {
+            ((NowFragment) fragment).setViewControllerComponent(viewControllerComponent);
+        } else if (fragment instanceof NewsFragment) {
+            ((NewsFragment) fragment).setViewControllerComponent(viewControllerComponent);
+        }
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu_news:
@@ -121,9 +131,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case SEARCH_TAB_INDEX:
                 return SearchFragment.newInstance();
         }
-    }
-
-    public ViewControllerComponent getViewControllerComponent() {
-        return viewControllerComponent;
     }
 }

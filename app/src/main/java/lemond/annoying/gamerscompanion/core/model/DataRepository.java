@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.repository.model;
+package lemond.annoying.gamerscompanion.core.model;
 
 
 import io.reactivex.Single;

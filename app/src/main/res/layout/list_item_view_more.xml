@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="lemond.annoying.gamerscompanion.core.viewmodel.ViewMoreViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_view_more"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:onClick="@{viewModel::onViewMoreClick}">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_view_more" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@{viewModel.viewMoreText}"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</layout>

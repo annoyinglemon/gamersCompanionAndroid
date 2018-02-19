@@ -16,7 +16,7 @@ import io.reactivex.Single;
 import lemond.annoying.gamerscompanion.fragment_news.model.NewsRepository;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
-import lemond.annoying.gamerscompanion.repository.exception.NoConnectivityException;
+import lemond.annoying.gamerscompanion.core.exception.NoConnectivityException;
 import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
 import static org.mockito.Mockito.*;
@@ -49,10 +49,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(false);
 
         verify(newsRepository).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, newsItemViewModels.size());
-        assertEquals(newsFragmentViewModel.getData().getValue().data, newsItemViewModels);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, newsItemViewModels.size());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, newsItemViewModels);
     }
 
     @Test
@@ -63,10 +63,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(false);
 
         verify(newsRepository, times(1)).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, newsItemViewModels.size());
-        assertEquals(newsFragmentViewModel.getData().getValue().data, newsItemViewModels);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, newsItemViewModels.size());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, newsItemViewModels);
     }
 
     @Test
@@ -79,10 +79,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(true);
 
         verify(newsRepository, times(2)).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, newsItemViewModels.size());
-        assertEquals(newsFragmentViewModel.getData().getValue().data, newsItemViewModels);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, newsItemViewModels.size());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, newsItemViewModels);
     }
 
     @Test
@@ -92,10 +92,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(false);
 
         verify(newsRepository).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.ERROR);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, 1);
-        assertEquals(newsFragmentViewModel.getData().getValue().data, null);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.ERROR);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, 1);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, null);
     }
 
     @Test
@@ -105,10 +105,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(false);
 
         verify(newsRepository).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.NO_INTERNET);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, 1);
-        assertEquals(newsFragmentViewModel.getData().getValue().data, null);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.NO_INTERNET);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, 1);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, null);
     }
 
     @Test
@@ -118,10 +118,10 @@ public class NewsFragmentViewModelTest {
         newsFragmentViewModel.fetchData(false);
 
         verify(newsRepository).fetchData();
-        assertNotNull(newsFragmentViewModel.getData().getValue());
-        assertEquals(newsFragmentViewModel.getData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(newsFragmentViewModel.getData().getValue().size, newsItemViewModels.size());
-        assertEquals(newsFragmentViewModel.getData().getValue().data, newsItemViewModels);
+        assertNotNull(newsFragmentViewModel.getLiveData().getValue());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().size, newsItemViewModels.size());
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, newsItemViewModels);
     }
 
 }

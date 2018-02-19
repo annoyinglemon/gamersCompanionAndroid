@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.fragment_now.fragment_main.viewmodel.GameItemViewModel;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.model.PopularRepository;
-import lemond.annoying.gamerscompanion.repository.viewmodel.DataFetcherViewModel;
+import lemond.annoying.gamerscompanion.core.viewmodel.DataFetcherViewModel;
 
 public class PopularFragmentViewModel extends DataFetcherViewModel<List<GameItemViewModel>> {
 

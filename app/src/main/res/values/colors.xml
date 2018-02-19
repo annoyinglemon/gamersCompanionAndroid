@@ -11,7 +11,4 @@
     <color name="colorAccent">#f5f5f5</color>
     <color name="white">#ffffff</color>
 
-    <!-- FOR GAME ITEM -->
-    <color name="gradient_start">#333333</color>
-
 </resources>

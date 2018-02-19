@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.repository.exception;
+package lemond.annoying.gamerscompanion.core.exception;
 
 import java.io.IOException;
 

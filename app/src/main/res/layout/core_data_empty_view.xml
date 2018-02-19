@@ -6,9 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageView_emptyView"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginBottom="8dp"
@@ -19,20 +18,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39"
-            app:srcCompat="@drawable/ic_no_internet" />
+            app:layout_constraintVertical_bias="0.39999998"
+            app:srcCompat="@drawable/ic_empty_game" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_emptyView"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Please check your internet connection and try again."
+            android:text="@string/empty_results"
             android:textAlignment="center"
-            android:textSize="13sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView_emptyView" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

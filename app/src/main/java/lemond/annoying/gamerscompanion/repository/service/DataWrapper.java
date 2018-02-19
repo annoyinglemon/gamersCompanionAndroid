@@ -14,6 +14,5 @@ public class DataWrapper<T> {
 
     public T data;
     public State state;
-    public int size;
 
 }

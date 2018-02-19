@@ -1,12 +1,14 @@
 package lemond.annoying.gamerscompanion.repository.objects;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Game {
-    // TODO: 2017-12-22 provide nonNULL annotation for GSON
-    // TODO: 2017-12-22 make this parcelable
+    @SerializedName("id")
     public long id;
+    @SerializedName("name")
     public String name;
     public long created_at;
     public long updated_at;
@@ -16,18 +18,18 @@ public class Game {
     public long franchise;
     public long game;
     public long version_parent;
-    // TODO: 2017-12-07 research gson how to convert array to list
     public List<Long> developers;
     public List<Long> publishers;
     public List<Long> game_engines;
-    // TODO: 2017-12-07 research gson how to convert int to enum
     public Category category;
-    public List<Long> themes;
+    @SerializedName("themes")
+    public List<Theme> themes;
     public long first_release_date;
     public GameStatus status;
     public List<ReleaseDate> release_dates;
     public List<Image> screenshots;
     public List<Video> videos;
+    @SerializedName("cover")
     public Image cover;
     public ESRB esrb;
     public PEGI pegi;

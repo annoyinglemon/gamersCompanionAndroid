@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion;
+package lemond.annoying.gamerscompanion.core.view;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;

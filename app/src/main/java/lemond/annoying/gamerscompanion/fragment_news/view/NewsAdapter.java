@@ -12,38 +12,43 @@ import java.util.List;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
+import lemond.annoying.gamerscompanion.core.viewmodel.ViewMoreViewModel;
 import lemond.annoying.gamerscompanion.databinding.ListItemNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
-import lemond.annoying.gamerscompanion.repository.adapter.DataStateAdapter;
-import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
+import lemond.annoying.gamerscompanion.core.adapter.DataStateAdapter;
 
-public class NewsAdapter extends DataStateAdapter<List<NewsItemViewModel>>{
+public class NewsAdapter extends DataStateAdapter<NewsItemViewModel>{
 
     private final GlideRequests glideRequests;
+    private final String viewMoreText;
 
-    NewsAdapter(GlideRequests glideRequests) {
+    NewsAdapter(GlideRequests glideRequests, String viewMoreText) {
+        super(true);
         this.glideRequests = glideRequests;
+        this.viewMoreText = viewMoreText;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == DataWrapper.State.CONTENT.ordinal()) {
-            List<NewsItemViewModel> data = currentDataWrapper.data;
-            NewsItemViewModel newsItemViewModel = data.get(position);
+        if (getItemViewType(position) == ViewType.CONTENT.ordinal()) {
+            List<NewsItemViewModel> newsList = (List<NewsItemViewModel>) dataList;
+            NewsItemViewModel newsItemViewModel = newsList.get(position);
             NewsViewHolder newsViewHolder = ((NewsViewHolder) holder);
             newsViewHolder.bindPulseViewModel(newsItemViewModel);
             glideRequests
                     .load(newsItemViewModel.getPulse().image)
                     .placeholder(R.color.colorPrimaryVeryLight)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(newsViewHolder.getBinding().imageNewsImageview);
+                    .into(newsViewHolder.getBinding().imageviewItemNews);
+        } else if (getItemViewType(position) == ViewType.VIEW_MORE.ordinal()) {
+            ViewMoreNewsViewHolder moreNewsViewHolder = ((ViewMoreNewsViewHolder) holder);
+            moreNewsViewHolder.bindViewMoreViewModel(new ViewMoreViewModel(ViewMoreViewModel.ViewMoreType.NEWS, viewMoreText));
         }
     }
 
     @Override
     public RecyclerView.ViewHolder getContentViewHolder(ViewGroup parent) {
-        ListItemNewsBinding loadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_item_news, parent, false);
-        return new NewsViewHolder(loadingBinding);
+        ListItemNewsBinding newsBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_item_news, parent, false);
+        return new NewsViewHolder(newsBinding);
     }
-
 }
