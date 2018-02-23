@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideRequests;
+import lemond.annoying.gamerscompanion.core.util.ImageUtil;
 import lemond.annoying.gamerscompanion.core.viewmodel.ViewMoreViewModel;
 import lemond.annoying.gamerscompanion.databinding.ListItemNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsItemViewModel;
@@ -35,6 +37,13 @@ public class NewsAdapter extends DataStateAdapter<NewsItemViewModel>{
             NewsItemViewModel newsItemViewModel = newsList.get(position);
             NewsViewHolder newsViewHolder = ((NewsViewHolder) holder);
             newsViewHolder.bindPulseViewModel(newsItemViewModel);
+            glideRequests
+                    .load(ImageUtil.getWebsiteFavIcon(newsItemViewModel.getBaseUrl()))
+                    .placeholder(R.color.white)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .circleCrop()
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(newsViewHolder.getBinding().imageViewWebsiteFavIcon);
             glideRequests
                     .load(newsItemViewModel.getPulse().image)
                     .placeholder(R.color.colorPrimaryVeryLight)

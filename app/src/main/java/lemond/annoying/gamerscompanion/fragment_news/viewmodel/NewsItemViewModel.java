@@ -27,7 +27,8 @@ public class NewsItemViewModel {
     public String getBaseUrl() {
         try {
             URL myURL = new URL(pulse.url);
-            return myURL.getHost();
+            String domain = myURL.getHost();
+            return domain.startsWith("www.") ? domain.substring(4) : domain;
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;

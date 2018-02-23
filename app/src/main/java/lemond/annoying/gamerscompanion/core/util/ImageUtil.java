@@ -33,6 +33,7 @@ public class ImageUtil {
     }
 
     /**
+     * returns the image url of the specified image
      * https://igdb.github.io/api/references/images/
      * @param imageId id of image, e.g cloudinary_id
      * @param imageSize imageSize enum
@@ -46,6 +47,16 @@ public class ImageUtil {
             pathImageSize = pathImageSize.concat("_2x");
         }
         return "https://images.igdb.com/igdb/image/upload/" + pathImageSize + "/" + pathFileName;
+    }
+
+
+    /**
+     * returns the favicon url of the specified website
+     * @param websiteUrl url of website e.g. google.com
+     * @return
+     */
+    public static String getWebsiteFavIcon(String websiteUrl) {
+        return "https://www.google.com/s2/favicons?domain="+websiteUrl;
     }
 
 }
