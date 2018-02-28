@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
         if (fragment instanceof NowFragment) {
-            ((NowFragment) fragment).setViewControllerComponent(viewControllerComponent);
+            viewControllerComponent.inject((NowFragment) fragment);
         } else if (fragment instanceof NewsFragment) {
-            ((NewsFragment) fragment).setViewControllerComponent(viewControllerComponent);
+            viewControllerComponent.inject((NewsFragment) fragment);
         }
     }
 

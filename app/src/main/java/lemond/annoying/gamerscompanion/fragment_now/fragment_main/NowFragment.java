@@ -10,41 +10,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import lemond.annoying.gamerscompanion.R;
-import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
 import lemond.annoying.gamerscompanion.databinding.FragmentNowBinding;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.HypedPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.PopularPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.TrendingPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.HypedPageFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.PopularPageFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.TrendingPageFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.viewmodel.NowPageFragmentViewModel;
 
 
 public class NowFragment extends Fragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
-
-    private ViewControllerComponent viewControllerComponent;
     private FragmentNowBinding binding;
 
+    @Inject
+    @TrendingPage
+    protected NowPageFragmentViewModel trendingViewModel;
+
+    @Inject
+    @PopularPage
+    protected NowPageFragmentViewModel popularViewModel;
+
+    @Inject
+    @HypedPage
+    protected NowPageFragmentViewModel hypedViewModel;
 
     public NowFragment() {}
 
     public static NowFragment newInstance() {
         return new NowFragment();
-    }
-
-    public void setViewControllerComponent(ViewControllerComponent viewControllerComponent) {
-        this.viewControllerComponent = viewControllerComponent;
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        if (childFragment instanceof HypedFragment) {
-            viewControllerComponent.inject((HypedFragment) childFragment);
-        } else if (childFragment instanceof PopularFragment) {
-            viewControllerComponent.inject((PopularFragment) childFragment);
-        } else if (childFragment instanceof TrendingFragment) {
-            viewControllerComponent.inject((TrendingFragment) childFragment);
-        }
     }
 
     @Override
@@ -61,6 +59,18 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
         binding.tablayoutNowFragment.setupWithViewPager(binding.viewpagerNowFragment);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        if (childFragment instanceof TrendingPageFragment) {
+            ((TrendingPageFragment) childFragment).setViewModel(trendingViewModel);
+        } else if (childFragment instanceof PopularPageFragment) {
+            ((PopularPageFragment) childFragment).setViewModel(popularViewModel);
+        } else {
+            ((HypedPageFragment) childFragment).setViewModel(hypedViewModel);
+        }
     }
 
     @Override

@@ -16,7 +16,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_view_more"
             android:gravity="center"
             android:layout_gravity="center"
             android:orientation="horizontal"
@@ -37,9 +36,15 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
                 android:text="@{viewModel.viewMoreText}"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryLight"
                 android:textSize="12sp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_view_more" />
 
         </LinearLayout>
 

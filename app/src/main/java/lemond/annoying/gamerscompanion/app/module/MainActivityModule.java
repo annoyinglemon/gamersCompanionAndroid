@@ -8,12 +8,13 @@ import lemond.annoying.gamerscompanion.activity.view.MainActivity;
 import lemond.annoying.gamerscompanion.app.ViewControllerScope;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModelFactory;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.viewmodel.HypedFragmentViewModelFactory;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularFragmentViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.viewmodel.PopularViewModelFactory;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingFragmentViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.viewmodel.TrendingViewModelFactory;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.model.NowPageRepository;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.HypedPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.PopularPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.TrendingPage;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.viewmodel.NowPageFragmentViewModel;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.viewmodel.NowPageViewModelFactory;
+import lemond.annoying.gamerscompanion.repository.service.GameService;
 
 @Module
 public class MainActivityModule {
@@ -26,27 +27,75 @@ public class MainActivityModule {
 
     @Provides
     @ViewControllerScope
+    @TrendingPage
+    NowPageRepository provideTrendingRepository(GameService gameService) {
+        return new NowPageRepository(gameService, NowPageRepository.PageType.TRENDING);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @PopularPage
+    NowPageRepository providePopularRepository(GameService gameService) {
+        return new NowPageRepository(gameService, NowPageRepository.PageType.POPULAR);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @HypedPage
+    NowPageRepository provideHypedRepository(GameService gameService) {
+        return new NowPageRepository(gameService, NowPageRepository.PageType.HYPED);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @TrendingPage
+    NowPageViewModelFactory provideTrendingViewModelFactory(@TrendingPage NowPageRepository nowPageRepository) {
+        return new NowPageViewModelFactory(nowPageRepository);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @PopularPage
+    NowPageViewModelFactory providePopularViewModelFactory(@PopularPage NowPageRepository nowPageRepository) {
+        return new NowPageViewModelFactory(nowPageRepository);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @HypedPage
+    NowPageViewModelFactory provideHypedViewModelFactory(@HypedPage NowPageRepository nowPageRepository) {
+        return new NowPageViewModelFactory(nowPageRepository);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @TrendingPage
+    NowPageFragmentViewModel provideTrendingViewModel(@TrendingPage NowPageViewModelFactory nowPageViewModelFactory) {
+        return ViewModelProviders.of(mainActivity, nowPageViewModelFactory).
+                get(NowPageRepository.PageType.TRENDING.toString(), NowPageFragmentViewModel.class);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @PopularPage
+    NowPageFragmentViewModel providePopularViewModel(@PopularPage NowPageViewModelFactory nowPageViewModelFactory) {
+        return ViewModelProviders.of(mainActivity, nowPageViewModelFactory).
+                get(NowPageRepository.PageType.POPULAR.toString(), NowPageFragmentViewModel.class);
+    }
+
+    @Provides
+    @ViewControllerScope
+    @HypedPage
+    NowPageFragmentViewModel provideHypedViewModel(@HypedPage NowPageViewModelFactory nowPageViewModelFactory) {
+        return ViewModelProviders.of(mainActivity, nowPageViewModelFactory).
+                get(NowPageRepository.PageType.HYPED.toString(), NowPageFragmentViewModel.class);
+    }
+
+
+    @Provides
+    @ViewControllerScope
     NewsFragmentViewModel provideNewsFragmentViewModel(NewsFragmentViewModelFactory newsFragmentViewModelFactory) {
         return ViewModelProviders.of(mainActivity, newsFragmentViewModelFactory).get(NewsFragmentViewModel.class);
     }
-
-    @Provides
-    @ViewControllerScope
-    PopularFragmentViewModel providePopularFragmentViewModel(PopularViewModelFactory popularViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, popularViewModelFactory).get(PopularFragmentViewModel.class);
-    }
-
-    @Provides
-    @ViewControllerScope
-    TrendingFragmentViewModel provideTrendingFragmentViewModel(TrendingViewModelFactory trendingViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, trendingViewModelFactory).get(TrendingFragmentViewModel.class);
-    }
-
-    @Provides
-    @ViewControllerScope
-    HypedFragmentViewModel provideHypedFragmentViewModel(HypedFragmentViewModelFactory hypedFragmentViewModelFactory) {
-        return ViewModelProviders.of(mainActivity, hypedFragmentViewModelFactory).get(HypedFragmentViewModel.class);
-    }
-
 
 }

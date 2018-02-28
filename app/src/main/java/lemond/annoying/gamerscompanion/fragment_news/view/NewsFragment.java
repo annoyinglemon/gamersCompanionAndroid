@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.app.GlideApp;
-import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
 import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 
@@ -23,7 +22,6 @@ import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewM
 public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private FragmentNewsBinding binding;
-    private ViewControllerComponent viewControllerComponent;
 
     @Inject
     protected NewsFragmentViewModel viewModel;
@@ -34,18 +32,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
-    }
-
-    public void setViewControllerComponent(ViewControllerComponent viewControllerComponent) {
-        this.viewControllerComponent = viewControllerComponent;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getActivity() != null) {
-            viewControllerComponent.inject(this);
-        }
     }
 
     @Override
@@ -70,7 +56,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         newsAdapter = new NewsAdapter(GlideApp.with(this), getString(R.string.more_news));
 
         binding.swipeRefreshNewsFragment.setAdapter(newsAdapter);
-
 
         viewModel.fetchData(false);
 

@@ -16,7 +16,7 @@ import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 public class DataFetcherViewModel<T> extends ViewModel {
 
     private MutableLiveData<DataWrapper<T>> liveData;
-    private DataRepository<T> dataRepository;
+    protected DataRepository<T> dataRepository;
     private boolean isDataInitialized;
     private Disposable fetchSubscription;
 

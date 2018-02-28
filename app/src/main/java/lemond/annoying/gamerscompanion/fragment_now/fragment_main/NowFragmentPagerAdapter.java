@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import lemond.annoying.gamerscompanion.fragment_now.fragment_popular.view.PopularFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_trending.view.TrendingFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_hyped.view.HypedFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.HypedPageFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.PopularPageFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.TrendingPageFragment;
 
 public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -47,12 +47,12 @@ public class NowFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case FRAGMENT_POPULAR_POSITION:
-                return PopularFragment.newInstance();
+                return PopularPageFragment.newInstance();
             case FRAGMENT_HYPED_POSITION:
-                return HypedFragment.newInstance();
+                return HypedPageFragment.newInstance();
             default:
             case FRAGMENT_TRENDING_POSITION:
-                return TrendingFragment.newInstance();
+                return TrendingPageFragment.newInstance();
         }
     }
 }
