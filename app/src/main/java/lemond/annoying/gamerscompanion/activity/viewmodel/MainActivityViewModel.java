@@ -3,7 +3,6 @@ package lemond.annoying.gamerscompanion.activity.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.VisibleForTesting;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -12,6 +11,7 @@ public class MainActivityViewModel extends ViewModel {
     public static final int SEARCH_TAB_INDEX = 2;
 
     private MutableLiveData<Integer> selectedPage;
+    private Integer previousSelected = 0;
 
     public MainActivityViewModel() {
         selectedPage = new MutableLiveData<>();
@@ -19,6 +19,9 @@ public class MainActivityViewModel extends ViewModel {
     }
 
     public void setSelectedPage(int selectedPage) {
+        if (this.selectedPage.getValue() != null) {
+            previousSelected = this.selectedPage.getValue();
+        }
         this.selectedPage.setValue(selectedPage);
     }
 
@@ -26,9 +29,8 @@ public class MainActivityViewModel extends ViewModel {
         return selectedPage;
     }
 
-    @VisibleForTesting
-    public Integer getSelectedPage() {
-        return selectedPage.getValue();
+    public boolean shouldAnimateScrollToTop() {
+        return previousSelected.equals(this.selectedPage.getValue());
     }
 
 }

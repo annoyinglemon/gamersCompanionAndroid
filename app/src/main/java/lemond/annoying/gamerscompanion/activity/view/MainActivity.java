@@ -1,6 +1,5 @@
 package lemond.annoying.gamerscompanion.activity.view;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.app.GamersApplication;
@@ -17,7 +17,7 @@ import lemond.annoying.gamerscompanion.app.ViewControllerComponent;
 import lemond.annoying.gamerscompanion.app.module.MainActivityModule;
 import lemond.annoying.gamerscompanion.databinding.ActivityMainBinding;
 import lemond.annoying.gamerscompanion.fragment_news.view.NewsFragment;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.NowFragment;
+import lemond.annoying.gamerscompanion.fragment_now.fragment_main.view.NowFragment;
 import lemond.annoying.gamerscompanion.fragment_search.SearchFragment;
 
 import static lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel.NEWS_TAB_INDEX;
@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String SEARCH_FRAGMENT_TAG = "search";
 
     private ActivityMainBinding binding;
-    private MainActivityViewModel viewModel;
+
+    @Inject
+    protected MainActivityViewModel viewModel;
+
     private ViewControllerComponent viewControllerComponent;
 
     @Override
@@ -39,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         viewControllerComponent = ((GamersApplication) getApplication()).getGamersAppComponent()
                 .getViewControllerComponent(new MainActivityModule(this));
 
+        viewControllerComponent.inject(this);
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
 
         viewModel.getSelectedPageLiveData().observe(this, this::switchFragment);
 
@@ -103,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             fragment = createFragment(position);
             transaction.add(R.id.main_fragment_container, fragment, fragmentTag);
         } else {
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             transaction.show(fragment);
         }
         transaction.commitAllowingStateLoss();

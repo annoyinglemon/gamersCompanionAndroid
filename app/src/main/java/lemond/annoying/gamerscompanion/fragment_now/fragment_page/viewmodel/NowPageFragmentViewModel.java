@@ -9,7 +9,7 @@ import lemond.annoying.gamerscompanion.core.viewmodel.DataFetcherViewModel;
 
 public class NowPageFragmentViewModel extends DataFetcherViewModel<List<GameItemViewModel>> {
 
-    NowPageFragmentViewModel(NowPageRepository nowPageRepository) {
+    public NowPageFragmentViewModel(NowPageRepository nowPageRepository) {
         super(nowPageRepository);
     }
 }

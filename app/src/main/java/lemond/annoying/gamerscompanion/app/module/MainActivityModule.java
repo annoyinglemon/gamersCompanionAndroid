@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.activity.view.MainActivity;
+import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.app.ViewControllerScope;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModelFactory;
@@ -23,6 +24,12 @@ public class MainActivityModule {
 
     public MainActivityModule(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
+    }
+
+    @Provides
+    @ViewControllerScope
+    MainActivityViewModel provideMainActivityViewModel() {
+        return ViewModelProviders.of(mainActivity).get(MainActivityViewModel.class);
     }
 
     @Provides

@@ -8,7 +8,7 @@
         tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.NowPageFragment">
 
         <lemond.annoying.gamerscompanion.core.view.SwipeRefreshDataRecyclerView
-            android:id="@+id/swipeRefresh_trendingFragment"
+            android:id="@+id/swipeRefresh_nowPageFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

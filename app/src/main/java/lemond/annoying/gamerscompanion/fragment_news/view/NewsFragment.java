@@ -14,21 +14,26 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding;
 import lemond.annoying.gamerscompanion.fragment_news.viewmodel.NewsFragmentViewModel;
 
 
-public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private FragmentNewsBinding binding;
+
+    @Inject
+    protected MainActivityViewModel mainActivityViewModel;
 
     @Inject
     protected NewsFragmentViewModel viewModel;
 
     protected NewsAdapter newsAdapter;
 
-    public NewsFragment() {}
+    public NewsFragment() {
+    }
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
@@ -57,9 +62,17 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         binding.swipeRefreshNewsFragment.setAdapter(newsAdapter);
 
+        mainActivityViewModel.getSelectedPageLiveData().observe(this, this::resetSession);
+
         viewModel.fetchData(false);
 
         return binding.getRoot();
+    }
+
+    private void resetSession(Integer pageSelected) {
+        if (pageSelected != null && pageSelected == 1) {
+            binding.swipeRefreshNewsFragment.scrollToTop(mainActivityViewModel.shouldAnimateScrollToTop());
+        }
     }
 
     @Override

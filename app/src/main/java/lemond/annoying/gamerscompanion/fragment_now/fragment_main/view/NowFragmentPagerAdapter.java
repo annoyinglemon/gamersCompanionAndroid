@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main.view;
 
 
 import android.support.annotation.Nullable;

@@ -4,6 +4,7 @@ package lemond.annoying.gamerscompanion.core.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.VisibleForTesting;
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -16,7 +17,7 @@ import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 public class DataFetcherViewModel<T> extends ViewModel {
 
     private MutableLiveData<DataWrapper<T>> liveData;
-    protected DataRepository<T> dataRepository;
+    private DataRepository<T> dataRepository;
     private boolean isDataInitialized;
     private Disposable fetchSubscription;
 
@@ -41,9 +42,7 @@ public class DataFetcherViewModel<T> extends ViewModel {
             unSubscribe();
 
             if (!byForce) {
-                DataWrapper<T> dataWrapper = new DataWrapper<>();
-                dataWrapper.state = DataWrapper.State.LOADING;
-                liveData.setValue(dataWrapper);
+                showLoadingState();
             }
 
             fetchSubscription = dataRepository.fetchData()
@@ -51,6 +50,13 @@ public class DataFetcherViewModel<T> extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::onFetchSuccess, this::onFetchFailed);
         }
+    }
+
+    @VisibleForTesting
+    public void showLoadingState() {
+        DataWrapper<T> dataWrapper = new DataWrapper<>();
+        dataWrapper.state = DataWrapper.State.LOADING;
+        liveData.setValue(dataWrapper);
     }
 
     private void onFetchSuccess(T dataResult) {

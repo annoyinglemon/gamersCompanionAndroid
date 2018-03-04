@@ -1,4 +1,4 @@
-package lemond.annoying.gamerscompanion.fragment_now.fragment_main;
+package lemond.annoying.gamerscompanion.fragment_now.fragment_main.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.databinding.FragmentNowBinding;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.HypedPage;
 import lemond.annoying.gamerscompanion.fragment_now.fragment_page.qualifier.PopularPage;
@@ -26,6 +27,9 @@ import lemond.annoying.gamerscompanion.fragment_now.fragment_page.viewmodel.NowP
 public class NowFragment extends Fragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     private FragmentNowBinding binding;
+
+    @Inject
+    protected MainActivityViewModel mainActivityViewModel;
 
     @Inject
     @TrendingPage
@@ -65,11 +69,11 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
         if (childFragment instanceof TrendingPageFragment) {
-            ((TrendingPageFragment) childFragment).setViewModel(trendingViewModel);
+            ((TrendingPageFragment) childFragment).setViewModels(mainActivityViewModel, trendingViewModel);
         } else if (childFragment instanceof PopularPageFragment) {
-            ((PopularPageFragment) childFragment).setViewModel(popularViewModel);
+            ((PopularPageFragment) childFragment).setViewModels(mainActivityViewModel, popularViewModel);
         } else {
-            ((HypedPageFragment) childFragment).setViewModel(hypedViewModel);
+            ((HypedPageFragment) childFragment).setViewModels(mainActivityViewModel, hypedViewModel);
         }
     }
 

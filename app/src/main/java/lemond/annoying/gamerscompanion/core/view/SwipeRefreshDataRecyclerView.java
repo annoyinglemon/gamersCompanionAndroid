@@ -88,6 +88,16 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
         return this.dataRecyclerView.getLayoutManager();
     }
 
+    public void scrollToTop(boolean animate) {
+        if (this.dataRecyclerView.getAdapter() != null && this.dataRecyclerView.getLayoutManager() != null) {
+            if (!animate) {
+                this.dataRecyclerView.scrollToPosition(0);
+            } else {
+                this.dataRecyclerView.smoothScrollToPosition(0);
+            }
+        }
+    }
+
     public void setDisplayState(DataWrapper.State displayState) {
         switch (displayState) {
             case LOADING:
