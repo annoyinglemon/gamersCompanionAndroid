@@ -1,25 +1,24 @@
 package lemond.annoying.gamerscompanion.app.module;
 
 
+import android.app.Application;
 import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
 import lemond.annoying.gamerscompanion.app.GamersApplicationScope;
+import lemond.annoying.gamerscompanion.main_activity.injection.MainActivityComponent;
 
-@Module
+@Module(subcomponents = {
+        MainActivityComponent.class
+})
 public class AppContextModule {
 
-    private final Context context;
-
-    public AppContextModule(Context context) {
-        this.context = context.getApplicationContext();
-    }
 
     @Provides
     @GamersApplicationScope
-    Context provideContext() {
-        return context;
+    Context provideContext(Application application) {
+        return application;
     }
 
 }

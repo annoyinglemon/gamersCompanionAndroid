@@ -5,7 +5,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="lemond.annoying.gamerscompanion.fragment_now.fragment_page.view.NowPageFragment">
+        tools:context="lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.view.NowPageFragment">
 
         <lemond.annoying.gamerscompanion.core.view.SwipeRefreshDataRecyclerView
             android:id="@+id/swipeRefresh_nowPageFragment"

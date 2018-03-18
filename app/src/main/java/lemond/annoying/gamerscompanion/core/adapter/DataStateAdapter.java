@@ -3,7 +3,6 @@ package lemond.annoying.gamerscompanion.core.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,7 +10,7 @@ import java.util.Collection;
 
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.databinding.ListItemViewMoreBinding;
-import lemond.annoying.gamerscompanion.fragment_news.view.ViewMoreNewsViewHolder;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.view.ViewMoreNewsViewHolder;
 
 
 public abstract class DataStateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

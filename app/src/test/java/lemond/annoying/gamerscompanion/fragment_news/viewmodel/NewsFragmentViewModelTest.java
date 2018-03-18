@@ -14,8 +14,10 @@ import java.util.List;
 
 import io.reactivex.Single;
 import lemond.annoying.gamerscompanion.RxSchedulerRule;
-import lemond.annoying.gamerscompanion.fragment_news.model.NewsRepository;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.model.NewsRepository;
 import lemond.annoying.gamerscompanion.core.exception.NoConnectivityException;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsFragmentViewModel;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsItemViewModel;
 import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
 import static org.mockito.Mockito.*;

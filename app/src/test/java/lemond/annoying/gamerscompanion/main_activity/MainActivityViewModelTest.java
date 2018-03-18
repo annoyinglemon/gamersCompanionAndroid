@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import lemond.annoying.gamerscompanion.activity.viewmodel.MainActivityViewModel;
+import lemond.annoying.gamerscompanion.main_activity.viewmodel.MainActivityViewModel;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MainActivityViewModelTest {

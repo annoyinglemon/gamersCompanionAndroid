@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import io.reactivex.Single;
-import lemond.annoying.gamerscompanion.fragment_news.model.NewsRepository;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.model.NewsRepository;
 import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 import lemond.annoying.gamerscompanion.repository.service.NewsService;
 

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="lemond.annoying.gamerscompanion.fragment_now.fragment_main.viewmodel.GameItemViewModel" />
+            type="lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_main.viewmodel.GameItemViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

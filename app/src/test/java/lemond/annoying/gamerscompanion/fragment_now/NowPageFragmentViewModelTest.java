@@ -16,9 +16,9 @@ import java.util.List;
 import io.reactivex.Single;
 import lemond.annoying.gamerscompanion.RxSchedulerRule;
 import lemond.annoying.gamerscompanion.core.exception.NoConnectivityException;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_main.viewmodel.GameItemViewModel;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_page.model.NowPageRepository;
-import lemond.annoying.gamerscompanion.fragment_now.fragment_page.viewmodel.NowPageFragmentViewModel;
+import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_main.viewmodel.GameItemViewModel;
+import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.model.NowPageRepository;
+import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.viewmodel.NowPageFragmentViewModel;
 import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
 import static org.junit.Assert.assertEquals;

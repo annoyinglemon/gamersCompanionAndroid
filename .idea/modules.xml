@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Gamerscompanion.iml" filepath="$PROJECT_DIR$/Gamerscompanion.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gamersCompanionAndroid.iml" filepath="$PROJECT_DIR$/gamersCompanionAndroid.iml" />
     </modules>
   </component>
 </project>
