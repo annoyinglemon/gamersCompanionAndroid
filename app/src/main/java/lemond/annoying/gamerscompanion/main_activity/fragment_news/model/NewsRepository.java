@@ -6,13 +6,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.injection.NewsFragmentScope;
 import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsItemViewModel;
-import lemond.annoying.gamerscompanion.main_activity.injection.MainActivityScope;
 import lemond.annoying.gamerscompanion.core.model.DataRepository;
 import lemond.annoying.gamerscompanion.repository.objects.Pulse;
 import lemond.annoying.gamerscompanion.repository.service.NewsService;
 
-@MainActivityScope
+@NewsFragmentScope
 public class NewsRepository implements DataRepository<List<NewsItemViewModel>> {
 
     private final NewsService newsService;

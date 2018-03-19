@@ -1,5 +1,6 @@
 package lemond.annoying.gamerscompanion.main_activity.fragment_news.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsFragmentViewModelFactory;
 import lemond.annoying.gamerscompanion.main_activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.app.GlideApp;
 import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding;
@@ -30,7 +32,9 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     protected MainActivityViewModel mainActivityViewModel;
 
     @Inject
-    protected NewsFragmentViewModel viewModel;
+    protected NewsFragmentViewModelFactory newsFragmentViewModelFactory;
+
+    private NewsFragmentViewModel viewModel;
 
     protected NewsAdapter newsAdapter;
 
@@ -48,20 +52,10 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel.getLiveData().observe(this, listDataWrapper -> {
-            if (listDataWrapper != null) {
-                newsAdapter.setDataList(listDataWrapper.data);
-                binding.swipeRefreshNewsFragment.setDisplayState(listDataWrapper.state);
-                binding.swipeRefreshNewsFragment.setRefreshing(false);
-            }
-        });
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
+
+        viewModel = ViewModelProviders.of(this, newsFragmentViewModelFactory).get(NewsFragmentViewModel.class);
 
         binding.swipeRefreshNewsFragment.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.swipeRefreshNewsFragment.setOnRefreshListener(this);
@@ -76,6 +70,19 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        viewModel.getLiveData().observe(this, listDataWrapper -> {
+            if (listDataWrapper != null) {
+                newsAdapter.setDataList(listDataWrapper.data);
+                binding.swipeRefreshNewsFragment.setDisplayState(listDataWrapper.state);
+                binding.swipeRefreshNewsFragment.setRefreshing(false);
+            }
+        });
+    }
+
 
     private void resetSession(Integer pageSelected) {
         if (pageSelected != null && pageSelected == 1) {

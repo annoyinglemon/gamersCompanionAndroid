@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import lemond.annoying.gamerscompanion.main_activity.fragment_news.injection.NewsFragmentScope;
 import lemond.annoying.gamerscompanion.main_activity.fragment_news.model.NewsRepository;
-import lemond.annoying.gamerscompanion.main_activity.injection.MainActivityScope;
 
-@MainActivityScope
+@NewsFragmentScope
 public class NewsFragmentViewModelFactory implements ViewModelProvider.Factory {
 
     private final NewsRepository newsRepository;

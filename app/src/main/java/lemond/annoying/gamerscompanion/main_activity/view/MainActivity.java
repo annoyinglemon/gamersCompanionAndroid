@@ -1,5 +1,6 @@
 package lemond.annoying.gamerscompanion.main_activity.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     private ActivityMainBinding binding;
 
-    @Inject
     protected MainActivityViewModel viewModel;
 
     @Inject
@@ -52,7 +52,13 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+
         viewModel.getSelectedPageLiveData().observe(this, this::switchFragment);
+
+        if (viewModel.getSelectedPageLiveData().getValue() != null) {
+            switchFragment(viewModel.getSelectedPageLiveData().getValue());
+        }
 
         binding.mainNavigationBottom.setOnNavigationItemSelectedListener(this);
     }

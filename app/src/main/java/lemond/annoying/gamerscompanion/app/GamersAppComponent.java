@@ -6,8 +6,6 @@ import android.app.Application;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
-import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
 import lemond.annoying.gamerscompanion.app.module.AppContextModule;
 import lemond.annoying.gamerscompanion.app.module.NetworkModule;
 import lemond.annoying.gamerscompanion.app.module.ServiceModule;
@@ -19,7 +17,7 @@ import lemond.annoying.gamerscompanion.app.module.ServiceModule;
         AppContextModule.class,
         NetworkModule.class,
         ServiceModule.class,
-        ActivityBuilder.class
+        ActivityBuilderModule.class
 })
 public interface GamersAppComponent {
 

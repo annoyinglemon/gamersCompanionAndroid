@@ -3,6 +3,7 @@ package lemond.annoying.gamerscompanion.main_activity.viewmodel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -14,6 +15,7 @@ public class MainActivityViewModel extends ViewModel {
     private Integer previousSelected = 0;
 
     public MainActivityViewModel() {
+        Log.d("kurt", "MainActivityViewModel is created");
         selectedPage = new MutableLiveData<>();
         this.selectedPage.setValue(NOW_TAB_INDEX);
     }

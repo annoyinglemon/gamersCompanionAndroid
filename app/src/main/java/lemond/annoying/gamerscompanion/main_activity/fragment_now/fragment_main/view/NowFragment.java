@@ -1,5 +1,6 @@
 package lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_main.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,11 @@ import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import lemond.annoying.gamerscompanion.R;
+import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.model.NowPageRepository;
 import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.qualifier.HypedPage;
 import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.view.PopularPageFragment;
 import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.viewmodel.NowPageFragmentViewModel;
+import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.viewmodel.NowPageViewModelFactory;
 import lemond.annoying.gamerscompanion.main_activity.viewmodel.MainActivityViewModel;
 import lemond.annoying.gamerscompanion.databinding.FragmentNowBinding;
 import lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_page.qualifier.PopularPage;
@@ -35,15 +39,15 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
 
     @Inject
     @TrendingPage
-    protected NowPageFragmentViewModel trendingViewModel;
+    protected NowPageViewModelFactory trendingViewModelFactory;
 
     @Inject
     @PopularPage
-    protected NowPageFragmentViewModel popularViewModel;
+    protected NowPageViewModelFactory popularViewModelFactory;
 
     @Inject
     @HypedPage
-    protected NowPageFragmentViewModel hypedViewModel;
+    protected NowPageViewModelFactory hypedViewModelFactory;
 
     public NowFragment() {}
 
@@ -76,12 +80,21 @@ public class NowFragment extends Fragment implements TabLayout.OnTabSelectedList
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
+        Log.d("kurt", "NowFragment onAttachFragment is called");
         if (childFragment instanceof TrendingPageFragment) {
-            ((TrendingPageFragment) childFragment).setViewModels(mainActivityViewModel, trendingViewModel);
+            NowPageFragmentViewModel viewModel = ViewModelProviders.of(this, trendingViewModelFactory)
+                    .get(NowPageRepository.PageType.TRENDING.toString(), NowPageFragmentViewModel.class);
+            ((TrendingPageFragment) childFragment).setViewModels(mainActivityViewModel, viewModel);
+
         } else if (childFragment instanceof PopularPageFragment) {
-            ((PopularPageFragment) childFragment).setViewModels(mainActivityViewModel, popularViewModel);
+            NowPageFragmentViewModel viewModel = ViewModelProviders.of(this, popularViewModelFactory)
+                    .get(NowPageRepository.PageType.POPULAR.toString(), NowPageFragmentViewModel.class);
+            ((PopularPageFragment) childFragment).setViewModels(mainActivityViewModel, viewModel);
+
         } else {
-            ((HypedPageFragment) childFragment).setViewModels(mainActivityViewModel, hypedViewModel);
+            NowPageFragmentViewModel viewModel = ViewModelProviders.of(this, hypedViewModelFactory)
+                    .get(NowPageRepository.PageType.HYPED.toString(), NowPageFragmentViewModel.class);
+            ((HypedPageFragment) childFragment).setViewModels(mainActivityViewModel, viewModel);
         }
     }
 
