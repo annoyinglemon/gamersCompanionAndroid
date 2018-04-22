@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout_activityGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout_activityGame"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:contentScrim="@color/white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+                <ImageView
+                    android:id="@+id/header_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.5"
+                    tools:src="@drawable/bg_image" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_activityGame"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/imageView_gameActivity_gameCover"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            app:cardBackgroundColor="@color/colorIconTint"
+            app:cardElevation="6dp"
+            app:layout_anchor="@id/appBarLayout_activityGame"
+            app:layout_anchorGravity="bottom" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="155dp"
+            app:layout_anchor="@id/appBarLayout_activityGame"
+            app:layout_anchorGravity="bottom">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <LinearLayout
+                    android:id="@+id/container_gameActivity_gameNameTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginBottom="2dp">
+
+                            <TextView
+                                android:id="@+id/textView_gameActivity_gameName_dark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="GTA V"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                tools:text="GTA V" />
+
+                            <TextView
+                                android:id="@+id/textView_gameActivity_gameName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="GTA V"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                tools:text="GTA V" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp">
+
+                            <TextView
+                                android:id="@+id/textView_gameActivity_gameTheme_dark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Action, Adventure"
+                                android:textColor="@color/colorPrimary"
+                                tools:text="Action, Adventure" />
+
+                            <TextView
+                                android:id="@+id/textView_gameActivity_gameTheme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="Action, Adventure"
+                                android:textColor="@color/white"
+                                tools:text="Action, Adventure" />
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -1,9 +1,11 @@
 package lemond.annoying.gamerscompanion.main_activity.fragment_now.fragment_main.viewmodel;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import lemond.annoying.gamerscompanion.game_activity.GameActivity;
 import lemond.annoying.gamerscompanion.repository.objects.Game;
 import lemond.annoying.gamerscompanion.core.util.ImageUtil;
 
@@ -37,6 +39,7 @@ public class GameItemViewModel {
     }
 
     public void onGameItemClick(View view) {
+        view.getContext().startActivity(new Intent(view.getContext(), GameActivity.class));
         Toast.makeText(view.getContext(), game.name, Toast.LENGTH_SHORT).show();
     }
 }
