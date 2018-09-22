@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="@layout/activity_game_details">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="lemond.annoying.gamerscompanion.game_activity.viewmodel.GameDetailsViewModel" />
+    </data>
+
+    <merge
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorPrimaryVeryLight"
+            android:visibility="@{viewModel.platformsVisibility == View.VISIBLE || viewModel.releaseDateVisibility == View.VISIBLE ? View.VISIBLE : View.GONE}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:visibility="@{viewModel.platformsVisibility}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/platform_game_details"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="0dp"
+                android:textSize="13sp"
+                android:visibility="@{viewModel.platformsVisibility}"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:platforms="@{viewModel.platforms}"
+                android:visibility="@{viewModel.platformsVisibility}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{viewModel.releaseDateVisibility}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/release_date_game_details"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="0dp"
+                android:textSize="13sp"
+                android:visibility="@{viewModel.releaseDateVisibility}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.releaseDate}"
+                android:textSize="12sp"
+                tools:text="July 14, 2018"
+                android:visibility="@{viewModel.releaseDateVisibility}" />
+
+        </LinearLayout>
+    </merge>
+
+</layout>

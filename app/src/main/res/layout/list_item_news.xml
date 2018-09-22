@@ -56,6 +56,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.linkVisibility}"
             android:background="@drawable/background_favicon">
 
             <ImageView
@@ -72,8 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:paddingTop="8dp"
-            android:text="@{viewModel.getBaseUrl}"
+            android:text="@{viewModel.baseUrl}"
             android:textStyle="bold"
+            android:visibility="@{viewModel.linkVisibility}"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/frameLayout_favIconContainer"

@@ -3,6 +3,16 @@
 
     <string name="pulse_author">by %s</string>
 
+    <!-- ratings -->
+    <string name="not_applicable">N/A</string>
+    <string name="overall_rating_label">Overall</string>
+
+    <!-- game details property labels -->
+    <string name="storyline_label_game_details">Storyline</string>
+    <string name="tags_game_details">Tags</string>
+    <string name="platform_game_details">Platform</string>
+    <string name="release_date_game_details">Release Date</string>
+
     <!-- FOR NEWS PUBLISH TIME PAST -->
     <string name="publish_past_day">%s days ago</string>
     <string name="publish_past_one_day">%s day ago</string>

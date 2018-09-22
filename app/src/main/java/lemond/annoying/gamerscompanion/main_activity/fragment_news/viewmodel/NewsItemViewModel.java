@@ -35,6 +35,13 @@ public class NewsItemViewModel {
         }
     }
 
+    public int getLinkVisibility() {
+        if (getBaseUrl() == null || getBaseUrl().contains("feedproxy.google.com")) {
+            return View.GONE;
+        }
+        return View.VISIBLE;
+    }
+
     public PublishedTimeFromNow getPublishDateDifference() {
         return new PublishedTimeFromNow(pulse.published_at);
     }

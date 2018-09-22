@@ -2,9 +2,13 @@ package lemond.annoying.gamerscompanion.main_activity.fragment_now.adapter;
 
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import java.util.List;
 
@@ -29,18 +33,21 @@ public class GameGridAdapter extends DataStateAdapter<GameItemViewModel> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == ViewType.CONTENT.ordinal()) {
             List<GameItemViewModel> itemViewModels = (List<GameItemViewModel>) dataList;
             GameItemViewModel gameItemViewModel = itemViewModels.get(position);
             GameGridViewHolder gameGridViewHolder = ((GameGridViewHolder) holder);
             gameGridViewHolder.bindItemViewModel(gameItemViewModel);
-            glideRequests
-                    .load(gameItemViewModel.getImageUrl())
-                    .placeholder(R.color.colorPrimaryVeryLight)
-                    .error(R.drawable.ic_error_image)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(gameGridViewHolder.getBinding().imageviewGameCover);
+            if (!TextUtils.isEmpty(gameItemViewModel.getImageUrl())) {
+                glideRequests
+                        .load(gameItemViewModel.getImageUrl())
+                        .placeholder(R.color.colorPrimaryVeryLight)
+                        .error(R.drawable.ic_error_image)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(gameGridViewHolder.getBinding().imageviewGameCover);
+            }
         } else if (getItemViewType(position) == ViewType.VIEW_MORE.ordinal()) {
             ViewMoreNewsViewHolder moreNewsViewHolder = ((ViewMoreNewsViewHolder) holder);
             moreNewsViewHolder.bindViewMoreViewModel(new ViewMoreViewModel(ViewMoreViewModel.ViewMoreType.NEWS, viewMoreText));

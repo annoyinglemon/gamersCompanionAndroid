@@ -4,7 +4,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Animatable2;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.graphics.drawable.Animatable2Compat;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -12,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
 import lemond.annoying.gamerscompanion.R;
 import lemond.annoying.gamerscompanion.repository.service.DataWrapper;
 
@@ -26,6 +39,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
     protected final View emptyView;
     protected final View errorView;
     protected final View networkErrorView;
+    protected final ImageView animatedLoadingView;
 
 
     public SwipeRefreshDataRecyclerView(Context context, AttributeSet attributeSet) {
@@ -48,6 +62,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
         final LayoutInflater inflater = LayoutInflater.from(context);
 
         loadingView = inflater.inflate(loadingViewResId, this, false);
+        animatedLoadingView = loadingView.findViewById(R.id.loadingView);
         emptyView = inflater.inflate(emptyViewResId, this, false);
         errorView = inflater.inflate(errorViewResId, this, false);
         networkErrorView = inflater.inflate(networkErrorViewResId, this, false);
@@ -102,6 +117,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
         switch (displayState) {
             case LOADING:
                 loadingView.setVisibility(VISIBLE);
+                startLoadingAnim();
                 dataRecyclerView.setVisibility(GONE);
                 errorView.setVisibility(GONE);
                 emptyView.setVisibility(GONE);
@@ -109,6 +125,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
                 break;
             case EMPTY:
                 loadingView.setVisibility(GONE);
+                stopLoadingView();
                 dataRecyclerView.setVisibility(GONE);
                 errorView.setVisibility(GONE);
                 emptyView.setVisibility(VISIBLE);
@@ -116,6 +133,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
                 break;
             case ERROR:
                 loadingView.setVisibility(GONE);
+                stopLoadingView();
                 dataRecyclerView.setVisibility(GONE);
                 errorView.setVisibility(VISIBLE);
                 emptyView.setVisibility(GONE);
@@ -123,6 +141,7 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
                 break;
             case NO_INTERNET:
                 loadingView.setVisibility(GONE);
+                stopLoadingView();
                 dataRecyclerView.setVisibility(GONE);
                 errorView.setVisibility(GONE);
                 emptyView.setVisibility(GONE);
@@ -131,11 +150,61 @@ public class SwipeRefreshDataRecyclerView extends SwipeRefreshLayout {
             default:
             case CONTENT:
                 loadingView.setVisibility(GONE);
+                stopLoadingView();
                 dataRecyclerView.setVisibility(VISIBLE);
                 errorView.setVisibility(GONE);
                 emptyView.setVisibility(GONE);
                 networkErrorView.setVisibility(GONE);
                 break;
+        }
+    }
+
+    private void startLoadingAnim() {
+        Drawable drawable = animatedLoadingView.getDrawable();
+        if (drawable != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                AnimatedVectorDrawable avd = (AnimatedVectorDrawable) drawable;
+                avd.registerAnimationCallback(new Animatable2.AnimationCallback() {
+
+                    @NonNull
+                    private final Handler fHandler = new Handler(Looper.getMainLooper());
+
+                    @Override
+                    public void onAnimationEnd(Drawable drawable) {
+                        Animatable avd = (Animatable) drawable;
+                        fHandler.post(avd::start);
+                    }
+                });
+                avd.start();
+
+            } else {
+                AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) drawable;
+                avd.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+
+                    @NonNull
+                    private final Handler fHandler = new Handler(Looper.getMainLooper());
+
+                    @Override
+                    public void onAnimationEnd(Drawable drawable) {
+                        Animatable2Compat avd = (Animatable2Compat) drawable;
+                        fHandler.post(avd::start);
+                    }
+                });
+                avd.start();
+            }
+        }
+    }
+
+    private void stopLoadingView() {
+        Drawable drawable = animatedLoadingView.getDrawable();
+        if (drawable != null) {
+            if (drawable instanceof AnimatedVectorDrawable) {
+                AnimatedVectorDrawable avd = (AnimatedVectorDrawable) drawable;
+                avd.stop();
+            } else if (drawable instanceof AnimatedVectorDrawableCompat) {
+                AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) drawable;
+                avd.stop();
+            }
         }
     }
 

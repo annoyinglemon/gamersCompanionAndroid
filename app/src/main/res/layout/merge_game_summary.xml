@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_game_details">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="lemond.annoying.gamerscompanion.game_activity.viewmodel.GameDetailsViewModel"/>
+    </data>
+
+    <merge
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorPrimaryVeryLight"
+            android:visibility="@{viewModel.summaryVisibility}"/>
+
+        <TextView
+            android:id="@+id/textView_gameSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="8dp"
+            android:text="@{viewModel.summary}"
+            android:textSize="12sp"
+            android:visibility="@{viewModel.summaryVisibility}"
+            tools:text="Wild Hunt is a story-driven, next-generation open world role-playing game set in a visually stunning fantasy universe full of meaningful choices and impactful consequences. In The Witcher you play as the professional monster hunter, Geralt of Rivia, tasked with finding a child of prophecy in a vast open world rich with merchant cities, viking pirate islands, dangerous mountain passes, and forgotten caverns to explore." />
+
+    </merge>
+</layout>

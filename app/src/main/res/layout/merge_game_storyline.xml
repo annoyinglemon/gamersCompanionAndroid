@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_game_details">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="lemond.annoying.gamerscompanion.game_activity.viewmodel.GameDetailsViewModel"/>
+    </data>
+
+    <merge
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorPrimaryVeryLight"
+            android:visibility="@{viewModel.storylineVisibility}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="8dp"
+            android:text="@string/storyline_label_game_details"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:visibility="@{viewModel.storylineVisibility}"/>
+
+        <TextView
+            android:id="@+id/textView_gameStoryline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:text="@{viewModel.storyline}"
+            android:visibility="@{viewModel.storylineVisibility}"
+            android:textSize="12sp"
+            tools:text="Wild Hunt concludes the story of the witcher Geralt of Rivia, the series' protagonist, whose story to date has been covered in the previous installments. Geralt's new mission comes in dark times as the mysterious and otherworldly army known as the Wild Hunt invades the Northern Kingdoms, leaving only blood soaked earth and fiery ruin in its wake; and it seems the Witcher is the key to stopping their cataclysmic rampage." />
+
+    </merge>
+</layout>

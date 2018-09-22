@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     private ActivityMainBinding binding;
 
-    protected MainActivityViewModel viewModel;
+    private MainActivityViewModel viewModel;
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="users">
+        <item quantity="zero">0 user</item>
+        <item quantity="one">%d user</item>
+        <item quantity="other">%d users</item>
+    </plurals>
+
+    <plurals name="critics">
+        <item quantity="zero">0 critic</item>
+        <item quantity="one">%d critic</item>
+        <item quantity="other">%d critics</item>
+    </plurals>
+</resources>
