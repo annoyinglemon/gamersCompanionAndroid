@@ -145,26 +145,26 @@ public class NowPageFragmentViewModelTest {
 
     private void assertContentLoading() {
         assertNotNull(nowPageFragmentViewModel.getLiveData().getValue());
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.LOADING);
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.LOADING);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
     private void assertContentResult() {
         assertNotNull(nowPageFragmentViewModel.getLiveData().getValue());
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().data, gameItemViewModels);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.CONTENT);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getData(), gameItemViewModels);
     }
 
     private void assertErrorResult() {
         assertNotNull(nowPageFragmentViewModel.getLiveData().getValue());
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.ERROR);
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.ERROR);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
     private void assertNetworkErrorResult() {
         assertNotNull(nowPageFragmentViewModel.getLiveData().getValue());
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.NO_INTERNET);
-        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.NO_INTERNET);
+        assertEquals(nowPageFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
 }

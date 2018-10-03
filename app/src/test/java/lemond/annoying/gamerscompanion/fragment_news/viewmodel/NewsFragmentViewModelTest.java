@@ -142,26 +142,26 @@ public class NewsFragmentViewModelTest {
 
     private void assertContentLoading() {
         assertNotNull(newsFragmentViewModel.getLiveData().getValue());
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.LOADING);
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.LOADING);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
     private void assertContentResult() {
         assertNotNull(newsFragmentViewModel.getLiveData().getValue());
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.CONTENT);
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, newsItemViewModels);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.CONTENT);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getData(), newsItemViewModels);
     }
 
     private void assertErrorResult() {
         assertNotNull(newsFragmentViewModel.getLiveData().getValue());
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.ERROR);
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.ERROR);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
     private void assertNetworkErrorResult() {
         assertNotNull(newsFragmentViewModel.getLiveData().getValue());
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().state, DataWrapper.State.NO_INTERNET);
-        assertEquals(newsFragmentViewModel.getLiveData().getValue().data, null);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getState(), DataWrapper.State.NO_INTERNET);
+        assertEquals(newsFragmentViewModel.getLiveData().getValue().getData(), null);
     }
 
 }

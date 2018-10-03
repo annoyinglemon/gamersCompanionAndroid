@@ -29,13 +29,16 @@ class Franchise(): Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Franchise> {
-        override fun createFromParcel(parcel: Parcel): Franchise {
-            return Franchise(parcel)
-        }
+    companion object {
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<Franchise> {
+            override fun createFromParcel(parcel: Parcel): Franchise {
+                return Franchise(parcel)
+            }
 
-        override fun newArray(size: Int): Array<Franchise?> {
-            return arrayOfNulls(size)
+            override fun newArray(size: Int): Array<Franchise?> {
+                return arrayOfNulls(size)
+            }
         }
     }
 

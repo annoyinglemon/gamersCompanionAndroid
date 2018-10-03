@@ -128,7 +128,7 @@
                             android:paddingTop="3dp"
                             android:paddingBottom="6dp"
                             app:label="@{@plurals/users(viewModel.userRatingCount, viewModel.userRatingCount)}"
-                            app:rating="@{viewModel.userRatingAverage}" />
+                            app:rating="@{safeUnbox(viewModel.userRatingAverage)}" />
 
                         <lemond.annoying.gamerscompanion.core.view.RatingProgressBar
                             android:layout_width="0dp"
@@ -137,7 +137,7 @@
                             android:paddingTop="3dp"
                             android:paddingBottom="6dp"
                             app:label="@{@plurals/critics(viewModel.criticRatingCount, viewModel.criticRatingCount)}"
-                            app:rating="@{viewModel.criticRatingAverage}" />
+                            app:rating="@{safeUnbox(viewModel.criticRatingAverage)}" />
 
                         <lemond.annoying.gamerscompanion.core.view.RatingProgressBar
                             android:layout_width="0dp"
@@ -146,7 +146,7 @@
                             android:paddingTop="3dp"
                             android:paddingBottom="6dp"
                             app:label="@string/overall_rating_label"
-                            app:rating="@{viewModel.totalRatingAverage}" />
+                            app:rating="@{safeUnbox(viewModel.totalRatingAverage)}" />
 
                     </LinearLayout>
 

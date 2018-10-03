@@ -11,9 +11,9 @@ import lemond.annoying.gamerscompanion.databinding.ProgressRatingBinding
 
 class RatingProgressBar(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
-    var progressRatingBinding : ProgressRatingBinding
-    var mRating : Int?
-    var mLabel : String?
+    private var progressRatingBinding : ProgressRatingBinding
+    private var mRating : Int
+    private var mLabel : String?
 
     init {
         val typedArray: TypedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.RatingProgressBar, 0, 0)
@@ -27,9 +27,9 @@ class RatingProgressBar(context: Context, attrs: AttributeSet) : FrameLayout(con
 
         progressRatingBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.progress_rating, this, true)
 
-        if (mRating != null || mRating!! > 0) {
-            progressRatingBinding.progressBarRating.progress = mRating!!
-            progressRatingBinding.textViewRating.setText(Integer.toString(mRating!!))
+        if (mRating > 0) {
+            progressRatingBinding.progressBarRating.progress = mRating
+            progressRatingBinding.textViewRating.setText(Integer.toString(mRating))
         }
         progressRatingBinding.textViewLabel.setText(mLabel)
 
@@ -44,8 +44,8 @@ class RatingProgressBar(context: Context, attrs: AttributeSet) : FrameLayout(con
 
     fun setRating(rating: Int) {
         this.mRating = rating
-        progressRatingBinding.textViewRating.setText(Integer.toString(mRating!!))
-        progressRatingBinding.progressBarRating.progress = mRating!!
+        progressRatingBinding.textViewRating.setText(Integer.toString(mRating))
+        progressRatingBinding.progressBarRating.progress = mRating
         invalidate()
         requestLayout()
     }

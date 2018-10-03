@@ -39,7 +39,7 @@ open class GameDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
     lateinit var gameDetailsViewModel: GameDetailsActivityViewModel
     lateinit var binding: ActivityGameDetailsBinding
 
-    private var gameImageCollapsedWidthPercentage: Float? = null
+    private var  gameImageCollapsedWidthPercentage: Float? = null
     private var gameImageCollapsedHeightPercentage: Float? = null
     private var gameNameThemeTop: Float? = null
 
@@ -64,10 +64,10 @@ open class GameDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
 
         //todo load game details
         gameDetailsViewModel.liveData.observe(this, Observer { dataWrapper ->
-            if (dataWrapper!!.data != null) {
-                gameViewModel.setGame(dataWrapper.data)
+            if (dataWrapper?.data != null) {
+                gameViewModel.setGame(dataWrapper.data!!)
             }
-            binding.containerView.setDisplayState(dataWrapper.state)
+            binding.containerView.setDisplayState(dataWrapper?.state)
         })
         gameDetailsViewModel.fetchData(false)
     }
@@ -83,7 +83,7 @@ open class GameDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         binding.setViewModel(gameViewModel)
 
         GlideApp.with(this)
-                .load(ImageUtil.getImageUrl(game.cover!!.cloudinary_id, ImageUtil.ImageSize.COVER_BIG, true))
+                .load(ImageUtil.getImageUrl(game.cover?.cloudinary_id, ImageUtil.ImageSize.COVER_BIG, true))
                 .error(R.drawable.ic_error_image)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(binding.imageViewGameActivityGameCover)
@@ -145,9 +145,9 @@ open class GameDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChang
         gameNameThemeTop = binding.containerGameActivityGameNameTheme.top.toFloat()
     }
 
-    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        val scrollTravelInPx = appBarLayout?.height?.minus(binding.toolbarActivityGame.height)
-        val scrollPercentage = Math.abs(verticalOffset.toFloat().times(-1f).div(scrollTravelInPx?.toFloat()!!))
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+        val scrollTravelInPx = appBarLayout.height.minus(binding.toolbarActivityGame.height)
+        val scrollPercentage = Math.abs(verticalOffset.toFloat().times(-1f).div(scrollTravelInPx.toFloat()))
 
         binding.cardViewGameCoverContainer.scaleX = 1f - gameImageCollapsedWidthPercentage?.times(scrollPercentage)!!
         binding.cardViewGameCoverContainer.scaleY = 1f - gameImageCollapsedHeightPercentage?.times(scrollPercentage)!!

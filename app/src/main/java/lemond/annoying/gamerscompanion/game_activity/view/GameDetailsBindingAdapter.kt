@@ -28,15 +28,15 @@ class GameDetailsBindingAdapter {
                 themesIterator.forEach {
                     when (it) {
                         is Theme -> {
-                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, false)
+                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, false)
                             flexboxLayout.addView(tagTextView)
                         }
                         is Keyword -> {
-                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, false)
+                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, false)
                             flexboxLayout.addView(tagTextView)
                         }
                         is Genre -> {
-                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, false)
+                            val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, false)
                             flexboxLayout.addView(tagTextView)
                         }
                     }
@@ -51,7 +51,7 @@ class GameDetailsBindingAdapter {
                 val themesIterator = keywords.iterator()
 
                 themesIterator.forEach {
-                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, false)
+                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, false)
                     flexboxLayout.addView(tagTextView)
                 }
             }
@@ -64,7 +64,7 @@ class GameDetailsBindingAdapter {
                 val themesIterator = genres.iterator()
 
                 themesIterator.forEach {
-                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, false)
+                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, false)
                     flexboxLayout.addView(tagTextView)
                 }
             }
@@ -77,14 +77,14 @@ class GameDetailsBindingAdapter {
                 val themesIterator = platforms.iterator()
 
                 themesIterator.forEach {
-                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name!!, true)
+                    val tagTextView: TextView = createTextView(flexboxLayout.context, it.name, true)
                     flexboxLayout.addView(tagTextView)
                 }
             }
         }
 
         @JvmStatic
-        private fun createTextView(context: Context, string: String, showPlatformIcon: Boolean): TextView {
+        private fun createTextView(context: Context, string: String?, showPlatformIcon: Boolean): TextView {
             val tagTextView = TextView(context)
             tagTextView.text = string
             tagTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
@@ -118,9 +118,9 @@ class GameDetailsBindingAdapter {
         }
 
         @JvmStatic
-        private fun getPlatformIcon(platformString: String): Int {
+        private fun getPlatformIcon(platformString: String?): Int {
             return when {
-                platformString.contains("pc", true) -> R.drawable.ic_windows
+                platformString?.contains("pc", true)!! -> R.drawable.ic_windows
                 platformString.contains("playstation", true) -> R.drawable.ic_playstation
                 platformString.contains("nintendo switch", true) -> R.drawable.ic_nintendo_switch
                 platformString.contains("xbox", true) -> R.drawable.ic_xbox

@@ -29,13 +29,16 @@ class Collection() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Collection> {
-        override fun createFromParcel(parcel: Parcel): Collection {
-            return Collection(parcel)
-        }
+    companion object {
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<Collection> {
+            override fun createFromParcel(parcel: Parcel): Collection {
+                return Collection(parcel)
+            }
 
-        override fun newArray(size: Int): Array<Collection?> {
-            return arrayOfNulls(size)
+            override fun newArray(size: Int): Array<Collection?> {
+                return arrayOfNulls(size)
+            }
         }
     }
 

@@ -38,10 +38,7 @@ class GameDetailsViewModel(private var game: Game) : BaseObservable() {
 
     @Bindable
     fun getName() : String {
-        return if (TextUtils.isEmpty(this.game.name))
-            ""
-        else
-            this.game.name!!
+        return this.game.name ?: ""
     }
 
     @Bindable
@@ -51,11 +48,7 @@ class GameDetailsViewModel(private var game: Game) : BaseObservable() {
 
     @Bindable
     fun getUserRatingCount() : Int {
-        return if (this.game.userRatingCount == null) {
-            0
-        } else {
-            this.game.userRatingCount!!
-        }
+        return this.game.userRatingCount ?: 0
     }
 
     @Bindable
@@ -65,11 +58,7 @@ class GameDetailsViewModel(private var game: Game) : BaseObservable() {
 
     @Bindable
     fun getCriticRatingCount() : Int {
-        return if (this.game.criticRatingCount == null) {
-            0
-        } else {
-            this.game.criticRatingCount!!
-        }
+        return this.game.criticRatingCount ?: 0
     }
 
     @Bindable
@@ -79,11 +68,7 @@ class GameDetailsViewModel(private var game: Game) : BaseObservable() {
 
     @Bindable
     fun getSummary() : String {
-        return if (TextUtils.isEmpty(this.game.summary)) {
-            ""
-        } else {
-            this.game.summary!!
-        }
+        return this.game.summary ?: ""
     }
 
     @Bindable
@@ -97,11 +82,7 @@ class GameDetailsViewModel(private var game: Game) : BaseObservable() {
 
     @Bindable
     fun getStoryline() : String {
-        return if (TextUtils.isEmpty(this.game.storyLine)) {
-            ""
-        } else {
-            this.game.storyLine!!
-        }
+        return this.game.storyLine ?: ""
     }
 
     @Bindable

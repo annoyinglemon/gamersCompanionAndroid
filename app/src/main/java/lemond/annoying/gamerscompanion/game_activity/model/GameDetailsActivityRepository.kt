@@ -8,9 +8,7 @@ import lemond.annoying.gamerscompanion.repository.service.GameService
 import javax.inject.Inject
 
 @GameDetailsActivityScope
-class GameDetailsActivityRepository @Inject constructor(gameService: GameService) : DataRepository<Game> {
-
-    private var gameService : GameService? = gameService
+class GameDetailsActivityRepository @Inject constructor(private var gameService: GameService) : DataRepository<Game> {
 
     private var gameId : String? = null
 
@@ -22,7 +20,7 @@ class GameDetailsActivityRepository @Inject constructor(gameService: GameService
      *  Fetches game details. Make sure to set the game Id first by calling GameDetailsActivityRepository.setGameId(gameId)
      **/
     override fun fetchData(): Single<Game> {
-        return gameService!!.getGameDetails(gameId).flatMap {
+        return gameService.getGameDetails(gameId!!).flatMap {
             Single.just(it[0])
         }
     }

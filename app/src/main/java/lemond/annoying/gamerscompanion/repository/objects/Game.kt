@@ -128,7 +128,9 @@ class Game() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Game> {
+    companion object {
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<Game> {
         override fun createFromParcel(parcel: Parcel): Game {
             return Game(parcel)
         }
@@ -137,6 +139,7 @@ class Game() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+}
 
 
 }
