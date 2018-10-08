@@ -1,19 +1,15 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-   <android.support.constraint.ConstraintLayout
+   <FrameLayout
+       android:id="@+id/fragment_news_container"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
        <lemond.annoying.gamerscompanion.core.view.SwipeRefreshDataRecyclerView
            android:id="@+id/swipeRefresh_newsFragment"
            android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
+           android:layout_height="match_parent" />
 
-   </android.support.constraint.ConstraintLayout>
+   </FrameLayout>
 
 </layout>

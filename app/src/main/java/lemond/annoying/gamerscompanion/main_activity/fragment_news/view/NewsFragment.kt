@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import javax.inject.Inject
 
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.disposables.Disposable
+import io.reactivex.subjects.PublishSubject
 import lemond.annoying.gamerscompanion.R
 import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsFragmentViewModelFactory
 import lemond.annoying.gamerscompanion.main_activity.viewmodel.MainActivityViewModel
@@ -22,6 +24,7 @@ import lemond.annoying.gamerscompanion.app.GlideApp
 import lemond.annoying.gamerscompanion.databinding.FragmentNewsBinding
 import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsFragmentViewModel
 import lemond.annoying.gamerscompanion.main_activity.fragment_news.viewmodel.NewsItemViewModel
+import lemond.annoying.gamerscompanion.repository.objects.Pulse
 
 
 class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -29,6 +32,7 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var viewModel: NewsFragmentViewModel
     private lateinit var newsAdapter: NewsAdapter
+    private var disposable: Disposable? = null
 
     @Inject
     lateinit var mainActivityViewModel: MainActivityViewModel
@@ -63,7 +67,27 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getLiveData().observe(this, Observer { listDataWrapper ->
+
             newsAdapter.setDataList(listDataWrapper?.data as? Collection<NewsItemViewModel>)
+
+            val pulseViewModelList : List<NewsItemViewModel>? = listDataWrapper?.data
+
+            val publishSubjectList: ArrayList<PublishSubject<Pulse>> = ArrayList()
+
+            if (pulseViewModelList != null && !pulseViewModelList.isEmpty()) {
+                for (pulseVm in pulseViewModelList) {
+                    publishSubjectList.add(pulseVm.getPulsePublishSubject())
+                }
+            }
+
+            disposable = PublishSubject.merge(publishSubjectList).subscribe{
+                val newsDetailFragment = NewsDetailFragment.newInstance(it)
+                childFragmentManager.beginTransaction()
+                        .add(R.id.fragment_news_container, newsDetailFragment)
+                        .addToBackStack(null)
+                        .commit()
+            }
+
             binding.swipeRefreshNewsFragment.setDisplayState(listDataWrapper?.state)
             binding.swipeRefreshNewsFragment.isRefreshing = false
         })
@@ -84,5 +108,10 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         fun newInstance(): NewsFragment {
             return NewsFragment()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposable?.dispose()
     }
 }
